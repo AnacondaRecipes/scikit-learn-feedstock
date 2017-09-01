@@ -1,6 +1,5 @@
 {% set version = "0.19.2" %}
 {% set name = "scikit-learn" %}
-{% set variant = "openblas" %}
 
 package:
   name: {{ name }}
@@ -12,33 +11,26 @@ source:
   sha256: b276739a5f863ccacb61999a3067d0895ee291c95502929b2ae56ea1f882e888
 
 build:
-  number: 201
-  # We lack scipy on Windows, and therefore can't build numpy there either currently.
-  skip: true  # [win]
-  features:
-    - blas_{{ variant }}
-  script: python -m pip install --no-deps --ignore-installed .  --verbose
+  number: 0
+  script: pip install -vvv .
+
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
   host:
-    - pip
     - python
     - cython
     - setuptools
-    - blas 1.1 {{ variant }}
-    - openblas
     - numpy
     - scipy
     - nose
+    - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
+    - openblas-devel   {{ openblas }}    # [blas_impl == 'openblas']
   run:
     - python
-    - blas 1.1 {{ variant }}
-    - openblas
-    - {{ pin_compatible('numpy') }}
     - scipy
+    - {{ pin_compatible('numpy') }}
 
 test:
   requires:
