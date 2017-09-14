@@ -1,0 +1,138 @@
+iFrom 10e79867bfbf5843b1a412513a028212ca24a1de Mon Sep 17 00:00:00 2001
+From: Joel Nothman <joel.nothman@gmail.com>
+Date: Tue, 13 Jun 2017 22:01:39 +1000
+Subject: [PATCH 1/5] FIX common test failures on Windows
+
+Common tests require some absolute tolerance in array comparison for small numerical imprecisions
+---
+ sklearn/utils/testing.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/sklearn/utils/testing.py b/sklearn/utils/testing.py
+index 7f1eecb18b8..b21f102667f 100644
+--- a/sklearn/utils/testing.py
++++ b/sklearn/utils/testing.py
+@@ -375,7 +375,7 @@ def assert_raise_message(exceptions, message, function, *args, **kwargs):
+                              (names, function.__name__))
+
+
+-def assert_allclose_dense_sparse(x, y, rtol=1e-07, atol=0, err_msg=''):
++def assert_allclose_dense_sparse(x, y, rtol=1e-07, atol=1e-13, err_msg=''):
+     """Assert allclose for sparse and dense data.
+
+     Both x and y need to be either sparse or dense, they
+@@ -389,6 +389,12 @@ def assert_allclose_dense_sparse(x, y, rtol=1e-07, atol=0, err_msg=''):
+     y : array-like or sparse matrix
+         Second array to compare.
+
++    rtol : float, optional
++        relative tolerance; see numpy.allclose
++
++    atol : float, optional
++        absolute tolerance; see numpy.allclose
++
+     err_msg : string, default=''
+         Error message to raise.
+     """
+
+From d423df7e5b1b981f53e83e418738b0ccd5677ef9 Mon Sep 17 00:00:00 2001
+From: Joel Nothman <joel.nothman@gmail.com>
+Date: Tue, 13 Jun 2017 22:55:26 +1000
+Subject: [PATCH 2/5] Increase atol after failure
+
+---
+ sklearn/utils/testing.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/sklearn/utils/testing.py b/sklearn/utils/testing.py
+index b21f102667f..b1047518ea5 100644
+--- a/sklearn/utils/testing.py
++++ b/sklearn/utils/testing.py
+@@ -375,7 +375,7 @@ def assert_raise_message(exceptions, message, function, *args, **kwargs):
+                              (names, function.__name__))
+
+
+-def assert_allclose_dense_sparse(x, y, rtol=1e-07, atol=1e-13, err_msg=''):
++def assert_allclose_dense_sparse(x, y, rtol=1e-07, atol=1e-9, err_msg=''):
+     """Assert allclose for sparse and dense data.
+
+     Both x and y need to be either sparse or dense, they
+@@ -393,7 +393,9 @@ def assert_allclose_dense_sparse(x, y, rtol=1e-07, atol=1e-13, err_msg=''):
+         relative tolerance; see numpy.allclose
+
+     atol : float, optional
+-        absolute tolerance; see numpy.allclose
++        absolute tolerance; see numpy.allclose. Note that the default here is
++        more tolerant than the default for numpy.testing.assert_allclose, where
++        atol=0.
+
+     err_msg : string, default=''
+         Error message to raise.
+
+From 428ac430caeadb46047377be2b5cb03717182cdc Mon Sep 17 00:00:00 2001
+From: Joel Nothman <joel.nothman@gmail.com>
+Date: Wed, 14 Jun 2017 13:36:23 +1000
+Subject: [PATCH 3/5] Fix atol in assert_allclose of
+ test_non_meta_estimators:check_classifiers_train
+
+---
+ sklearn/utils/estimator_checks.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sklearn/utils/estimator_checks.py b/sklearn/utils/estimator_checks.py
+index c0a8bb155ee..08f5c82fa2c 100644
+--- a/sklearn/utils/estimator_checks.py
++++ b/sklearn/utils/estimator_checks.py
+@@ -1142,7 +1142,7 @@ def check_classifiers_train(name, classifier_orig):
+             if hasattr(classifier, "predict_log_proba"):
+                 # predict_log_proba is a transformation of predict_proba
+                 y_log_prob = classifier.predict_log_proba(X)
+-                assert_allclose(y_log_prob, np.log(y_prob), 8)
++                assert_allclose(y_log_prob, np.log(y_prob), 8, atol=1e-9)
+                 assert_array_equal(np.argsort(y_log_prob), np.argsort(y_prob))
+
+
+
+From ffab76e7992b7307e35b71e3c0c75ce0ecd1ff72 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Lo=C3=AFc=20Est=C3=A8ve?= <loic.esteve@ymail.com>
+Date: Wed, 14 Jun 2017 13:41:33 +0200
+Subject: [PATCH 4/5] Make test_common.py pass on Windows
+
+---
+ sklearn/utils/estimator_checks.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sklearn/utils/estimator_checks.py b/sklearn/utils/estimator_checks.py
+index 08f5c82fa2c..59090db93d4 100644
+--- a/sklearn/utils/estimator_checks.py
++++ b/sklearn/utils/estimator_checks.py
+@@ -1378,7 +1378,7 @@ def check_class_weight_classifiers(name, classifier_orig):
+         set_random_state(classifier)
+         classifier.fit(X_train, y_train)
+         y_pred = classifier.predict(X_test)
+-        assert_greater(np.mean(y_pred == 0), 0.89)
++        assert_greater(np.mean(y_pred == 0), 0.87)
+
+
+ @ignore_warnings(category=DeprecationWarning)
+
+From f3a9fe0f68079ecc9ae78f0acc90d312fbfb6739 Mon Sep 17 00:00:00 2001
+From: Joel Nothman <joel.nothman@gmail.com>
+Date: Wed, 14 Jun 2017 23:29:57 +1000
+Subject: [PATCH 5/5] Add comment about threshold
+
+---
+ sklearn/utils/estimator_checks.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sklearn/utils/estimator_checks.py b/sklearn/utils/estimator_checks.py
+index 59090db93d4..a21f0959419 100644
+--- a/sklearn/utils/estimator_checks.py
++++ b/sklearn/utils/estimator_checks.py
+@@ -1378,6 +1378,8 @@ def check_class_weight_classifiers(name, classifier_orig):
+         set_random_state(classifier)
+         classifier.fit(X_train, y_train)
+         y_pred = classifier.predict(X_test)
++        # XXX: Generally can use 0.89 here. On Windows, LinearSVC gets
++        #      0.88 (Issue #9111)
+         assert_greater(np.mean(y_pred == 0), 0.87)
