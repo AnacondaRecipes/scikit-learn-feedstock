@@ -1,17 +1,19 @@
-{% set version = "0.19.0" %}
+{% set version = "0.19.1" %}
 
 package:
   name: scikit-learn
   version: {{ version }}
 
 source:
-  url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: 25a889df32b9b3353f990726b54b6dc3e52a871ae8aea42e1f49d6726226f83c
+  git_url: https://github.com/scikit-learn/scikit-learn
+  # 0.19.1 release tag
+  git_rev: b661a9c81930429cba4a56af291ce2bf8c59f8c9
   patches:
     - atol_in_gaussian_tests.patch  # [win]
+    - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
 
 build:
-  number: 2
+  number: 0
   # conda 4.4+ can use this
   skip: True  # [blas_impl == 'openblas' and win]
   requires_features:
