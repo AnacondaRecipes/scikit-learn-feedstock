@@ -15,6 +15,8 @@ build:
   script: pip install -vvv .
 
 requirements:
+  requires:
+    - nomkl  # [blas_impl == 'openblas']
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
@@ -26,7 +28,8 @@ requirements:
     - scipy
     - nose
     - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
-    - openblas-devel   {{ openblas }}    # [blas_impl == 'openblas']
+    - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
+    - nomkl  # [blas_impl == 'openblas']
   run:
     - python
     - scipy
