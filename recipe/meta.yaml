@@ -16,7 +16,6 @@ build:
 
 requirements:
   requires:
-    - nomkl  # [blas_impl == 'openblas']
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
@@ -60,6 +59,7 @@ requirements:
 test:
   requires:                                           # [not linux32]
     - nose                                            # [not linux32]
+    - nomkl  # [blas_impl == 'openblas']
   imports:
     - sklearn
   commands:
