@@ -57,8 +57,8 @@ requirements:
 # FAILED (SKIP=77, failures=2)
 
 test:
-  requires:                                           # [not linux32]
-    - nose                                            # [not linux32]
+  requires:
+    - nose
     - nomkl  # [blas_impl == 'openblas']
   imports:
     - sklearn
