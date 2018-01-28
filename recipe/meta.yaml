@@ -36,7 +36,7 @@ requirements:
     - nose
     - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
     - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
-    - nomkl  # [blas_impl == 'openblas']
+    - nomkl  # [x86_64 and blas_impl == 'openblas']
   run:
     - python
     - scipy
@@ -67,7 +67,7 @@ requirements:
 test:
   requires:
     - nose
-    - nomkl  # [blas_impl == 'openblas']
+    - nomkl  # [x86_64 and blas_impl == 'openblas']
   imports:
     - sklearn
   commands:
