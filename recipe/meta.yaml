@@ -62,7 +62,8 @@ test:
   imports:
     - sklearn
   commands:
-    - nosetests sklearn --exe                         # [not linux32]
+    - nosetests sklearn --exe -v                      # [not linux32 and not ppc64le]
+    - OMP_NUM_THREADS=1 nosetests sklearn --exe -v    # [ppc64le}
     - conda inspect linkages -p $PREFIX scikit-learn  # [not win]
     - conda inspect objects -p $PREFIX scikit-learn   # [osx]
 
