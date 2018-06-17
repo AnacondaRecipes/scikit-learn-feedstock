@@ -35,6 +35,7 @@ requirements:
   run:
     - python
     - scipy
+    - mkl  {{ mkl }}  # [blas_impl == 'mkl']
     - {{ pin_compatible('numpy') }}
 
 # TODO :: Fix this properly.
