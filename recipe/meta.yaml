@@ -18,6 +18,7 @@ source:
 build:
   number: 0
   script: pip install -vvv .
+  skip: True  # [blas_impl == 'openblas' and win]
 
 requirements:
   build:
@@ -36,7 +37,6 @@ requirements:
   run:
     - python
     - scipy
-    - mkl  {{ mkl }}  # [blas_impl == 'mkl']
     - {{ pin_compatible('numpy') }}
 
 # TODO :: Fix this properly.
@@ -69,9 +69,7 @@ test:
     - sklearn
   commands:
     - nosetests sklearn --exe -v                      # [not linux32 and not ppc64le]
-    - OMP_NUM_THREADS=1 nosetests sklearn --exe -v    # [ppc64le}
-    - conda inspect linkages -p $PREFIX scikit-learn  # [not win]
-    - conda inspect objects -p $PREFIX scikit-learn   # [osx]
+    - OMP_NUM_THREADS=1 nosetests sklearn --exe -v    # [ppc64le]
 
 about:
   home: http://scikit-learn.org/
