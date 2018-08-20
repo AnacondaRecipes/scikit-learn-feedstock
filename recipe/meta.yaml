@@ -10,10 +10,8 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: b276739a5f863ccacb61999a3067d0895ee291c95502929b2ae56ea1f882e888
   patches:
-    - 0001-FIX-n_iter_-should-be-less-than-max_iter-in-when-usi.patch
     - atol_in_gaussian_tests.patch  # [win]
     - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
-    - 0001-FIX-cython-cluster-module-name-error-10343.patch
 
 build:
   number: 0
@@ -33,7 +31,6 @@ requirements:
     - nose
     - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
     - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
-    - nomkl  # [x86 and blas_impl == 'openblas']
   run:
     - python
     - scipy
