@@ -15,7 +15,9 @@ source:
 
 build:
   number: 0
-  script: pip install -vvv .
+  # 2018-09-14: pip is not finding numpy correctly.  Revert to older install method
+  # script: pip install -vvv .
+  script: python setup.py install --single-version-externally-managed --record=record.txt
   skip: True  # [blas_impl == 'openblas' and win]
 
 requirements:
