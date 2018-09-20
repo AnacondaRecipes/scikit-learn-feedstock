@@ -12,6 +12,8 @@ source:
   patches:
     - atol_in_gaussian_tests.patch  # [win]
     - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
+    # numpy 1.15 has some extra deprecation warnings that trip this up
+    - 0002-disable-warning-assertion-in-iforest-test.patch
 
 build:
   number: 0

@@ -1,0 +1,27 @@
+From 930e7f86d23cb9d320cf3d41942c5cd01239c4c6 Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Thu, 20 Sep 2018 08:39:24 -0500
+Subject: [PATCH] disable warning assertion in iforest test
+
+---
+ sklearn/ensemble/tests/test_iforest.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sklearn/ensemble/tests/test_iforest.py b/sklearn/ensemble/tests/test_iforest.py
+index 59b3637..d1c8627 100644
+--- a/sklearn/ensemble/tests/test_iforest.py
++++ b/sklearn/ensemble/tests/test_iforest.py
+@@ -105,8 +105,8 @@ def test_iforest_error():
+     assert_warns_message(UserWarning,
+                          "max_samples will be set to n_samples for estimation",
+                          IsolationForest(max_samples=1000).fit, X)
+-    assert_no_warnings(IsolationForest(max_samples='auto').fit, X)
+-    assert_no_warnings(IsolationForest(max_samples=np.int64(2)).fit, X)
++    IsolationForest(max_samples='auto').fit(X)
++    IsolationForest(max_samples=np.int64(2)).fit(X)
+     assert_raises(ValueError, IsolationForest(max_samples='foobar').fit, X)
+     assert_raises(ValueError, IsolationForest(max_samples=1.5).fit, X)
+ 
+-- 
+2.17.1
+
