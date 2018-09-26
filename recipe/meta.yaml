@@ -1,4 +1,4 @@
-{% set version = "0.19.2" %}
+{% set version = "0.20.0" %}
 {% set name = "scikit-learn" %}
 
 package:
@@ -7,21 +7,17 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b276739a5f863ccacb61999a3067d0895ee291c95502929b2ae56ea1f882e888
+  # url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
+  sha256: 6f0e84931af697d7c2841ccdf50110f69cc964788f503e2f43eeaf0240482dc0
   patches:
     - atol_in_gaussian_tests.patch  # [win]
     - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
-    - 0001-disable-test_predict_proba_binary.patch  # [win32 and py==37]
-    # numpy 1.15 has some extra deprecation warnings that trip this up
-    - 0002-disable-warning-assertion-in-iforest-test.patch
-    # numeric approximation fail on win-32
-    - 0003-relax-test_t_sne-preserve_trustworthiness_approximat.patch
 
 build:
   number: 0
-  # 2018-09-14: pip is not finding numpy correctly.  Revert to older install method
-  # script: pip install -vvv .
+  # pip wants to use wheels for numpy and scipy.  Why?  Ours not good enough for it?
+  # script: pip install --no-index -vvv .
   script: python setup.py install --single-version-externally-managed --record=record.txt
   skip: True  # [blas_impl == 'openblas' and win]
 
@@ -33,15 +29,12 @@ requirements:
     - python
     - cython
     - setuptools
-    - numpy
-    - scipy
-    - nose
+    - numpy-devel  {{ numpy }}
     - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
     - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
   run:
     - python
     - scipy
-    - {{ pin_compatible('numpy') }}
 
 # TODO :: Fix this properly.
 # Running into the same suspected i686 MKL bug that afflicts numpy and scipy
@@ -67,13 +60,12 @@ requirements:
 
 test:
   requires:
-    - nose
-    - nomkl  # [x86_64 and blas_impl == 'openblas']
+    - pytest
   imports:
     - sklearn
   commands:
-    - nosetests sklearn --exe -v                      # [not linux32 and not ppc64le]
-    - OMP_NUM_THREADS=1 nosetests sklearn --exe -v    # [ppc64le]
+    - pytest --showlocals --durations=20 --pyargs sklearn    # [not linux32 and not ppc64le]
+    - OMP_NUM_THREADS=1 pytest --showlocals --durations=20 --pyargs sklearn   # [ppc64le]
 
 about:
   home: http://scikit-learn.org/
@@ -89,3 +81,4 @@ extra:
     - ogrisel
     - ocefpaf
     - lesteve
+    - msarahan
