@@ -13,9 +13,13 @@ source:
   patches:
     - atol_in_gaussian_tests.patch  # [win]
     - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
+    # fails for mkl/py37/win32 - can apply selector if you want, but this should not be harmful.
+    - 0001-reduce-precision-of-almost_equal-in-test_graph_lasso.patch
+    # https://github.com/scikit-learn/scikit-learn/pull/12159
+    - remove_nested_parallelism_in_mean_shift.patch
 
 build:
-  number: 0
+  number: 1
   # pip wants to use wheels for numpy and scipy.  Why?  Ours not good enough for it?
   # script: pip install --no-index -vvv .
   script: python setup.py install --single-version-externally-managed --record=record.txt

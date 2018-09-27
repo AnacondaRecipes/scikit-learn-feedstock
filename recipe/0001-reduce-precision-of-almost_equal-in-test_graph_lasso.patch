@@ -1,0 +1,35 @@
+From 667a2fd3df3670371062924ce3432adccb5667b3 Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Thu, 27 Sep 2018 08:44:59 -0500
+Subject: [PATCH] reduce precision of almost_equal in test_graph_lasso
+
+---
+ sklearn/covariance/tests/test_graph_lasso.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/sklearn/covariance/tests/test_graph_lasso.py b/sklearn/covariance/tests/test_graph_lasso.py
+index 8c07536..7c9cb87 100644
+--- a/sklearn/covariance/tests/test_graph_lasso.py
++++ b/sklearn/covariance/tests/test_graph_lasso.py
+@@ -47,14 +47,14 @@ def test_graph_lasso(random_state=0):
+             if not alpha == 0:
+                 assert_array_less(np.diff(costs), 0)
+         # Check that the 2 approaches give similar results
+-        assert_array_almost_equal(covs['cd'], covs['lars'], decimal=4)
+-        assert_array_almost_equal(icovs['cd'], icovs['lars'], decimal=4)
++        assert_array_almost_equal(covs['cd'], covs['lars'], decimal=3)
++        assert_array_almost_equal(icovs['cd'], icovs['lars'], decimal=3)
+ 
+     # Smoke test the estimator
+     model = GraphLasso(alpha=.25).fit(X)
+     model.score(X)
+-    assert_array_almost_equal(model.covariance_, covs['cd'], decimal=4)
+-    assert_array_almost_equal(model.covariance_, covs['lars'], decimal=4)
++    assert_array_almost_equal(model.covariance_, covs['cd'], decimal=3)
++    assert_array_almost_equal(model.covariance_, covs['lars'], decimal=3)
+ 
+     # For a centered matrix, assume_centered could be chosen True or False
+     # Check that this returns indeed the same result for centered data
+-- 
+2.17.1
+

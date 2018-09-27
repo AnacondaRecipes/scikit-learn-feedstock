@@ -1,0 +1,27 @@
+From 31d472df4926880099ee52ff9346c8f9b2fe3d71 Mon Sep 17 00:00:00 2001
+From: Olivier Grisel <olivier.grisel@ensta.org>
+Date: Tue, 25 Sep 2018 17:29:55 +0200
+Subject: [PATCH] OPTIM remove useless overhead caused by nested parallelism in
+ mean_shift
+
+---
+ sklearn/cluster/mean_shift_.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/sklearn/cluster/mean_shift_.py b/sklearn/cluster/mean_shift_.py
+index 800c85c36598..537d6c7a2fcd 100644
+--- a/sklearn/cluster/mean_shift_.py
++++ b/sklearn/cluster/mean_shift_.py
+@@ -193,7 +193,11 @@ def mean_shift(X, bandwidth=None, seeds=None, bin_seeding=False,
+             seeds = X
+     n_samples, n_features = X.shape
+     center_intensity_dict = {}
+-    nbrs = NearestNeighbors(radius=bandwidth, n_jobs=n_jobs).fit(X)
++
++    # We use n_jobs=1 because this will be used in nested calls under
++    # parallel calls to _mean_shift_single_seed so there is no need for
++    # for further parallelism.
++    nbrs = NearestNeighbors(radius=bandwidth, n_jobs=1).fit(X)
+ 
+     # execute iterations on all seeds in parallel
+     all_res = Parallel(n_jobs=n_jobs)(
