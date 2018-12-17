@@ -15,6 +15,8 @@ source:
     - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
     # fails for mkl/py37/win32 - can apply selector if you want, but this should not be harmful.
     - 0001-reduce-precision-of-almost_equal-in-test_graph_lasso.patch
+    # https://github.com/scikit-learn/scikit-learn/issues/12676
+    - 0002-xfail-test_omp_cv-due-to-mkl-issues.patch  # [win]
 
 build:
   number: 0
