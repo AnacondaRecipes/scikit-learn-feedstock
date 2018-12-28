@@ -1,4 +1,4 @@
-{% set version = "0.20.1" %}
+{% set version = "0.20.2" %}
 {% set name = "scikit-learn" %}
 
 package:
@@ -9,14 +9,14 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   # url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: 618feea121c59a52ea459d6af7bc179344ca345775b04bd60e96740e9df75960
+  sha256: a5df291430f7b2d4e1b0d95680d49f170f28e37cf6594c0b7fc5e4f17330d0b0
   patches:
     - atol_in_gaussian_tests.patch  # [win]
     - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
     # fails for mkl/py37/win32 - can apply selector if you want, but this should not be harmful.
     - 0001-reduce-precision-of-almost_equal-in-test_graph_lasso.patch
     # https://github.com/scikit-learn/scikit-learn/issues/12676
-    - 0002-xfail-test_omp_cv-due-to-mkl-issues.patch  # [win]
+    - 0002-xfail-test_omp_cv-due-to-mkl-issues.patch
 
 build:
   number: 0
