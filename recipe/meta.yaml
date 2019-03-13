@@ -1,4 +1,4 @@
-{% set version = "0.20.2" %}
+{% set version = "0.20.3" %}
 {% set name = "scikit-learn" %}
 
 package:
@@ -7,9 +7,8 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  # url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: a5df291430f7b2d4e1b0d95680d49f170f28e37cf6594c0b7fc5e4f17330d0b0
+  sha256: cadeefa9a824671bdcad790a075efbaa0d5a00458c43c9b4ce7110b129df7b10
   patches:
     - atol_in_gaussian_tests.patch  # [win]
     - 0001-disable-test_predict_proba_binary.patch  # [win and vc==9]
@@ -20,9 +19,7 @@ source:
 
 build:
   number: 0
-  # pip wants to use wheels for numpy and scipy.  Why?  Ours not good enough for it?
-  # script: pip install --no-index -vvv .
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python -m pip install --no-deps --ignore-installed .  --verbose
   skip: True  # [blas_impl == 'openblas' and win]
 
 requirements:
@@ -30,9 +27,9 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
+    - pip
     - python
     - cython
-    - setuptools
     - numpy-devel  {{ numpy }}
     - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
     - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
