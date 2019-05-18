@@ -1,0 +1,33 @@
+From 614e6c828ccbc888205a1eff307a4a0293ef133d Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Fri, 14 Dec 2018 14:53:20 -0600
+Subject: [PATCH 2/3] xfail test_omp_cv due to mkl issues
+
+---
+ sklearn/linear_model/tests/test_omp.py | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sklearn/linear_model/tests/test_omp.py b/sklearn/linear_model/tests/test_omp.py
+index aa14018..5420e3b 100644
+--- a/sklearn/linear_model/tests/test_omp.py
++++ b/sklearn/linear_model/tests/test_omp.py
+@@ -3,6 +3,8 @@
+ 
+ import numpy as np
+ 
++import pytest
++
+ from sklearn.utils.testing import assert_raises
+ from sklearn.utils.testing import assert_equal
+ from sklearn.utils.testing import assert_array_equal
+@@ -199,6 +201,7 @@ def test_omp_return_path_prop_with_gram():
+     assert_array_almost_equal(path[:, :, -1], last)
+ 
+ 
++@pytest.mark.xfail(reason="mkl problem - see https://github.com/scikit-learn/scikit-learn/issues/12676")
+ def test_omp_cv():
+     y_ = y[:, 0]
+     gamma_ = gamma[:, 0]
+-- 
+2.7.4
+
