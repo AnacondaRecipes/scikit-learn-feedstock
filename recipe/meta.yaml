@@ -21,6 +21,7 @@ build:
   number: 0
   script: python -m pip install --no-deps --ignore-installed .  --verbose
   skip: True  # [blas_impl == 'openblas' and win]
+  skip: True  # [py<35]
 
 requirements:
   build:
@@ -29,6 +30,7 @@ requirements:
     - llvm-openmp  # [osx]
   host:
     - python
+    - pip
     - cython
     - llvm-openmp  # [osx]
     - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
@@ -43,11 +45,10 @@ requirements:
 
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
-{% set test_cpus = CPU_COUNT %}  # [not (aarch64 or ppc64le)]
-{% set test_cpus = 4 %}          # [ppc64le]
-{% set test_cpus = 8 %}          # [aarch64]
+{% set test_cpus = 1 %}
 
 {% set tests_to_skip = "_not_a_real_test" %}
+{% set tests_to_skip = tests_to_skip + " or test_ard_accuracy_on_easy_problem" %}
 # Fixed in 0.22.1 -- https://github.com/scikit-learn/scikit-learn/issues/15774
 {% set tests_to_skip = tests_to_skip + " or test_pca_dtype_preservation" %}               # [ppc64le]
 # Can fail on aarch64 -- https://github.com/scikit-learn/scikit-learn/issues/15821
