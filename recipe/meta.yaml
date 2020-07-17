@@ -24,6 +24,7 @@ requirements:
     - pip
     - llvm-openmp  # [osx]
     - cython >=0.28.5
+    # TODO remove mkl-devel, see https://github.com/AnacondaRecipes/scikit-learn-feedstock/issues/1
     - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
     - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
     - numpy-devel  {{ numpy }}
