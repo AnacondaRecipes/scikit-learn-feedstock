@@ -1,4 +1,4 @@
-{% set version = "0.23.1" %}
+{% set version = "0.23.2" %}
 
 package:
   name: scikit-learn
@@ -6,12 +6,11 @@ package:
 
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: 3596ede14e1edcfee2e10ecf2a52cd10b2df3f8b763fe14d6e99141e6ca5ecba
+  sha256: 26f56e0c5aac4811f5a90109c4eed0396ee196d8383608b9bf33129528e6fcfd
 
 build:
   number: 0
   script: python -m pip install --no-deps --ignore-installed .  --verbose
-  skip: True  # [blas_impl == 'openblas' and win]
   skip: True  # [py<35]
 
 requirements:
@@ -24,16 +23,14 @@ requirements:
     - pip
     - llvm-openmp  # [osx]
     - cython >=0.28.5
-    # TODO remove mkl-devel, see https://github.com/AnacondaRecipes/scikit-learn-feedstock/issues/1
-    - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
-    - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
-    - numpy-devel  {{ numpy }}
+    - numpy
     - scipy >=0.17.0
     - joblib >=0.11
     - threadpoolctl
   run:
     - python
     - llvm-openmp  # [osx]
+    - {{ pin_compatible('numpy') }}
     - scipy
     - joblib >=0.11
     - threadpoolctl
