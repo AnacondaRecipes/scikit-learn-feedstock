@@ -7,9 +7,11 @@ package:
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
   sha256: 26f56e0c5aac4811f5a90109c4eed0396ee196d8383608b9bf33129528e6fcfd
+  patches:
+    - patches/0001-backport-sklearn-gradientboost-byteorderfix.patch
 
 build:
-  number: 0
+  number: 1
   script: python -m pip install --no-deps --ignore-installed .  --verbose
   skip: True  # [py<35]
 
@@ -51,7 +53,8 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_california_housing" %}
 # ppc64le failing test
 {% set tests_to_skip = tests_to_skip + " or test_k_means" %}  # [ppc64le]
-
+# s390x gaussian kde failing from scipy
+{% set tests_to_skip = tests_to_skip + " or test_gaussian_kde" %}  # [s390x]
 
 test:
   requires:
