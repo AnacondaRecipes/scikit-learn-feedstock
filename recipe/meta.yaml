@@ -1,4 +1,4 @@
-{% set version = "0.23.2" %}
+{% set version = "0.24.1" %}
 
 package:
   name: scikit-learn
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: 26f56e0c5aac4811f5a90109c4eed0396ee196d8383608b9bf33129528e6fcfd
+  sha256: a663dbe0feb04bd9949da315a3abc9ddf5ce84d4e07d16c5b96e0947ee56a4eb
   patches:
     # TODO: remove this patch when this recipe is updated above version 0.24.0.
     - patches/0001-backport-cross-platform-tree-byteorder-fix.patch
