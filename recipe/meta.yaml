@@ -34,6 +34,9 @@ requirements:
     - scipy
     - joblib >=0.11
     - threadpoolctl
+    # Using selector until packages for other platforms are (re)built using
+    # newer defaults toolchains that use the `_openmp_mutex` mechanism.
+    - _openmp_mutex   # [s390x]
 
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
