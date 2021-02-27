@@ -7,12 +7,9 @@ package:
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
   sha256: a663dbe0feb04bd9949da315a3abc9ddf5ce84d4e07d16c5b96e0947ee56a4eb
-  patches:
-    # TODO: remove this patch when this recipe is updated above version 0.24.0.
-    - patches/0001-backport-cross-platform-tree-byteorder-fix.patch
 
 build:
-  number: 1
+  number: 0
   script: python -m pip install --no-deps --ignore-installed .  --verbose
   skip: True  # [py<35]
 
@@ -54,8 +51,6 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_california_housing" %}
 # ppc64le failing test
 {% set tests_to_skip = tests_to_skip + " or test_k_means" %}  # [ppc64le]
-# s390x gaussian kde failing from scipy -- https://github.com/scipy/scipy/issues/13512
-{% set tests_to_skip = tests_to_skip + " or test_gaussian_kde" %}  # [s390x]
 
 test:
   requires:
