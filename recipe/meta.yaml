@@ -54,6 +54,7 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_california_housing" %}
 # ppc64le failing test
 {% set tests_to_skip = tests_to_skip + " or test_k_means" %}  # [ppc64le]
+{% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}  # [ppc64le]
 
 test:
   requires:
