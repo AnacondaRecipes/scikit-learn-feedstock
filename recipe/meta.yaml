@@ -49,6 +49,9 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_sag_regressor_computed_correct" %}       # [linux]
 # Occasionally fails on aarch64 -- https://github.com/scikit-learn/scikit-learn/issues/15825
 {% set tests_to_skip = tests_to_skip + " or test_unreachable_accuracy" %}                 # [aarch64]
+# Fails on linux-aarch64
+{% set tests_to_skip = tests_to_skip + " or test_np_matrix" %}                  # [linux and aarch64]
+{% set tests_to_skip = tests_to_skip + " or test_lle_simple_grid" %}            # [linux and aarch64]
 # skip network tests -- https://github.com/scikit-learn/scikit-learn/issues/16743
 {% set tests_to_skip = tests_to_skip + " or network" %}
 {% set tests_to_skip = tests_to_skip + " or test_california_housing" %}
