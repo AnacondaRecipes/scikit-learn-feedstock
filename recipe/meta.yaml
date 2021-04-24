@@ -7,9 +7,11 @@ package:
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
   sha256: a663dbe0feb04bd9949da315a3abc9ddf5ce84d4e07d16c5b96e0947ee56a4eb
+  patches:
+    - 0001_convert_array_to_float_contains_np_nan.patch
 
 build:
-  number: 0
+  number: 1
   script: python -m pip install --no-deps --ignore-installed .  --verbose
   skip: True  # [py<35]
 
@@ -36,7 +38,7 @@ requirements:
     - threadpoolctl
     # Using selector until packages for other platforms are (re)built using
     # newer defaults toolchains that use the `_openmp_mutex` mechanism.
-    - _openmp_mutex   # [s390x]
+    - _openmp_mutex   # [s390x or aarch64]
 
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
