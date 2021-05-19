@@ -1,4 +1,4 @@
-{% set version = "0.24.1" %}
+{% set version = "0.24.2" %}
 
 package:
   name: scikit-learn
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: a663dbe0feb04bd9949da315a3abc9ddf5ce84d4e07d16c5b96e0947ee56a4eb
+  sha256: 642fb016bfe4bb7539ba6bf4e6dd5a95d2d25638387040b0f5eefdb84a840297
 
 build:
   number: 0
@@ -24,16 +24,16 @@ requirements:
     - llvm-openmp  # [osx]
     - cython >=0.28.5
     - numpy
-    - scipy >=0.17.0
+    - scipy >=0.19.1
     - joblib >=0.11
-    - threadpoolctl
+    - threadpoolctl >=2.0.0
   run:
     - python
     - llvm-openmp  # [osx]
     - {{ pin_compatible('numpy') }}
-    - scipy
+    - scipy >=0.19.1
     - joblib >=0.11
-    - threadpoolctl
+    - threadpoolctl >=2.0.0
     # Using selector until packages for other platforms are (re)built using
     # newer defaults toolchains that use the `_openmp_mutex` mechanism.
     - _openmp_mutex   # [s390x]
