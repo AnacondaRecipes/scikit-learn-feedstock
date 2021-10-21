@@ -24,14 +24,14 @@ requirements:
     - llvm-openmp  # [osx]
     - cython >=0.28.5
     - numpy
-    - scipy >=0.19.1
+    - scipy >=1.1.0
     - joblib >=0.11
     - threadpoolctl >=2.0.0
   run:
     - python
     - llvm-openmp  # [osx]
     - {{ pin_compatible('numpy') }}
-    - scipy >=0.19.1
+    - scipy >=1.1.0
     - joblib >=0.11
     - threadpoolctl >=2.0.0
     # Using selector until packages for other platforms are (re)built using
@@ -66,7 +66,10 @@ about:
   home: http://scikit-learn.org/
   license: BSD-3-Clause
   license_file: COPYING
+  license_family: BSD
   summary: A set of python modules for machine learning and data mining
+  doc_url: https://scikit-learn.org/dev/user_guide.html
+  dev_url: https://github.com/scikit-learn/scikit-learn
 
 extra:
   recipe-maintainers:
