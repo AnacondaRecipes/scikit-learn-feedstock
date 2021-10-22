@@ -21,6 +21,8 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
     - llvm-openmp  # [osx]
     - cython >=0.28.5
     - numpy
@@ -49,7 +51,7 @@ requirements:
 
 test:
   requires:
-    - pytest >=3.3.0
+    - pytest >=5.0.1
     - cython >=0.28.5
     - pytest-xdist
     - pytest-timeout
