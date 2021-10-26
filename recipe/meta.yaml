@@ -1,4 +1,4 @@
-{% set version = "0.24.2" %}
+{% set version = "1.0.1" %}
 
 package:
   name: scikit-learn
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: 642fb016bfe4bb7539ba6bf4e6dd5a95d2d25638387040b0f5eefdb84a840297
+  sha256: 1b4d6b023baaf20b4d1b70ed67033182089c03995dc7ae0e803645fa9ed024f9
 
 build:
   number: 1
