@@ -59,12 +59,20 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_k_means" %}  # [ppc64le]
 {% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}  # [ppc64le]
 
+{% set tests_to_skip = tests_to_skip + " or test_precomputed_nearest_neighbors_filtering" %}          # [win32]
+{% set tests_to_skip = tests_to_skip + " or test_pca_n_components_mostly_explained_variance_ratio" %} # [win32]
+{% set tests_to_skip = tests_to_skip + " or (GaussianProcessRegressor and check_supervised_y_2d)" %}  # [win32]
+{% set tests_to_skip = tests_to_skip + " or (GaussianProcessRegressor and check_fit_idempotent)" %}   # [win32]
+{% set tests_to_skip = tests_to_skip + " or (SpectralEmbedding and check_pipeline_consistency)" %}    # [win32]
+{% set tests_to_skip = tests_to_skip + " or (Nystroem and check_fit_idempotent)" %}                   # [win32]
+
 test:
   requires:
     - pytest >=3.3.0
     - cython >=0.28.5
     - pytest-xdist
     - pytest-timeout
+    - pip
   imports:
     - sklearn
   commands:
