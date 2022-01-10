@@ -48,6 +48,10 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_loadings_converges" %}
 # Numerically unstable test numerical difference in test
 {% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}         # [ppc64le]
+# On win32 there are failed tests:
+#{% set tests_to_skip = tests_to_skip + " or test_precomputed_nearest_neighbors_filtering or test_precomputed_nearest_neighbors_filtering" %}         # [win32]
+#{% set tests_to_skip = tests_to_skip + " or test_estimators[GaussianProcessRegressor()-check_supervised_y_2d] or test_estimators[GaussianProcessRegressor()-check_fit_idempotent]" %}         # [win32]
+#{% set tests_to_skip = tests_to_skip + " or test_estimators[Nystroem()-check_fit_idempotent] or test_family_bounds[family0-expected0]" %}         # [win32]
 
 test:
   requires:
