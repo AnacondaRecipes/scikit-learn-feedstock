@@ -55,9 +55,11 @@ test:
     - cython >=0.29.24
     - pytest-xdist
     - pytest-timeout
+    - pip
   imports:
     - sklearn
   commands:
+    - pip check
     - set OPENBLAS_NUM_THREADS=1          # [win]
     - set OMP_NUM_THREADS=1               # [win]
     - export OPENBLAS_NUM_THREADS=1       # [not win]
