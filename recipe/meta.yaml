@@ -20,21 +20,21 @@ requirements:
     - llvm-openmp  # [osx]
   host:
     - python
-    - pip
-    - setuptools
-    - wheel
-    - llvm-openmp  # [osx]
-    - cython >=0.28.5
-    - numpy
-    - scipy >=1.1.0
+    - cython >=0.29.24
     - joblib >=0.11
+    - llvm-openmp  # [osx]
+    - numpy
+    - pip
+    - scipy >=1.1.0
+    - setuptools <60.0
     - threadpoolctl >=2.0.0
+    - wheel
   run:
     - python
+    - joblib >=0.11
     - llvm-openmp  # [osx]
     - {{ pin_compatible('numpy') }}
     - scipy >=1.1.0
-    - joblib >=0.11
     - threadpoolctl >=2.0.0
     # Using selector until packages for other platforms are (re)built using
     # newer defaults toolchains that use the `_openmp_mutex` mechanism.
@@ -52,7 +52,7 @@ requirements:
 test:
   requires:
     - pytest >=5.0.1
-    - cython >=0.28.5
+    - cython >=0.29.24
     - pytest-xdist
     - pytest-timeout
   imports:
