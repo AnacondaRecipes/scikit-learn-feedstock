@@ -55,6 +55,7 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or (GaussianProcessRegressor and check_fit_idempotent)" %}   # [win32]
 {% set tests_to_skip = tests_to_skip + " or (SpectralEmbedding and check_pipeline_consistency)" %}    # [win32]
 {% set tests_to_skip = tests_to_skip + " or (Nystroem and check_fit_idempotent)" %}                   # [win32]
+{% set tests_to_skip = tests_to_skip + " or (StackingClassifier)" %}                                  # [win32]
 
 test:
   requires:
