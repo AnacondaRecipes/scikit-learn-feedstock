@@ -4,7 +4,7 @@
 @REM default subdir is 32-bit, we do not want to show this message (as there is no oneDAL).
 @REM So, if the conda subdir is not win-64 -> exit.
 conda config --show subdir | %SYSTEMROOT%\System32\find.exe /I "win-64"
-if errorlevel 1 exit 1
+if errorlevel 1 exit /b 0
 
 (
 echo.
