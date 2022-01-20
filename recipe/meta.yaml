@@ -43,6 +43,8 @@ requirements:
 {% set test_cpus = 1 %}
 
 {% set tests_to_skip = "_not_a_real_test" %}
+# https://github.com/scikit-learn/scikit-learn/issues/20335
+{% set tests_to_skip = tests_to_skip + " or test_loadings_converges" %}
 # Can fail on aarch64 -- https://github.com/scikit-learn/scikit-learn/issues/15821
 {% set tests_to_skip = tests_to_skip + " or test_uniform_grid" %}                         # [aarch64]
 # Can fail -- https://github.com/scikit-learn/scikit-learn/issues/15818
