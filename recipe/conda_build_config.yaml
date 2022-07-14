@@ -1,0 +1,4 @@
+# 7/14/2022: As of v1.1.0, scikit-learn requires minimum of numpy 1.17.3. 
+# See https://scikit-learn.org/dev/whats_new/v1.1.html#version-1-1-0
+numpy:
+  - 1.19.2
