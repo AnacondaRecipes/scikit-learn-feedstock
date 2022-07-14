@@ -1,4 +1,4 @@
-{% set version = "1.0.2" %}
+{% set version = "1.1.1" %}
 
 package:
   name: scikit-learn
@@ -6,12 +6,12 @@ package:
 
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
-  sha256: 34471662f0e5ba8d2c799391338c6f976680cc66b715e00db0c7589f4f371bc4
+  sha256: 568e621b9e1479b9ab952a9241db5af2ba3ab4f69d44b8aba3dd7648825e8e5a
 
 build:
-  number: 1
+  number: 0
   script: python -m pip install --no-deps --ignore-installed .  --verbose
-  skip: true  # [py<37]
+  skip: true  # [py<38]
 
 requirements:
   build:
@@ -21,20 +21,20 @@ requirements:
   host:
     - python
     - cython >=0.29.24
-    - joblib >=0.11
+    - joblib >=1.0.0
     - llvm-openmp  # [osx]
     - numpy
     - pip
-    - scipy >=1.1.0
+    - scipy >=1.3.2
     - setuptools <60.0
     - threadpoolctl >=2.0.0
     - wheel
   run:
     - python
-    - joblib >=0.11
+    - joblib >=1.0.0
     - llvm-openmp  # [osx]
     - {{ pin_compatible('numpy') }}
-    - scipy >=1.1.0
+    - scipy >=1.3.2
     - threadpoolctl >=2.0.0
     # Using selector until packages for other platforms are (re)built using
     # newer defaults toolchains that use the `_openmp_mutex` mechanism.
@@ -48,14 +48,6 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_loadings_converges" %}
 # Numerically unstable test numerical difference in test
 {% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}         # [ppc64le]
-# On win32 there are failed tests:
-{% set tests_to_skip = tests_to_skip + " or test_precomputed_nearest_neighbors_filtering" %}          # [win32]
-{% set tests_to_skip = tests_to_skip + " or test_pca_n_components_mostly_explained_variance_ratio" %} # [win32]
-{% set tests_to_skip = tests_to_skip + " or (GaussianProcessRegressor and check_supervised_y_2d)" %}  # [win32]
-{% set tests_to_skip = tests_to_skip + " or (GaussianProcessRegressor and check_fit_idempotent)" %}   # [win32]
-{% set tests_to_skip = tests_to_skip + " or (SpectralEmbedding and check_pipeline_consistency)" %}    # [win32]
-{% set tests_to_skip = tests_to_skip + " or (Nystroem and check_fit_idempotent)" %}                   # [win32]
-{% set tests_to_skip = tests_to_skip + " or (StackingClassifier)" %}                                  # [win32]
 
 test:
   requires:
@@ -75,7 +67,7 @@ test:
     - pytest --timeout 300 -n {{ test_cpus }} --verbose --pyargs sklearn -k "not ({{ tests_to_skip }})"
 
 about:
-  home: http://scikit-learn.org/
+  home: https://scikit-learn.org/
   license: BSD-3-Clause
   license_file: COPYING
   license_family: BSD
