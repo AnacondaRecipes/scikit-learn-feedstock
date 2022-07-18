@@ -9,6 +9,5 @@ python:
   - 3.9
   - 3.10
 zip_keys:
-  -
-    - python
-    - numpy
+  - numpy
+  - python
