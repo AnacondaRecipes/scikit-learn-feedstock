@@ -1,2 +1,2 @@
 # the channels to use when building/uploading for test
-channels: []
+channels: ["c3i_test2"]
