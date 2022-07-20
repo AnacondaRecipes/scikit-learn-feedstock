@@ -23,7 +23,9 @@ requirements:
     - cython >=0.29.24
     - joblib >=1.0.0
     - llvm-openmp  # [osx]
-    - numpy
+    - numpy   1.19  # [not (osx and arm64) and (py==38 or py==39)]
+    - numpy   1.21  # [(osx and arm64) and (py==38 or py==39)]
+    - numpy   1.21  # [py==310]
     - pip
     - scipy >=1.3.2
     - setuptools <60.0
