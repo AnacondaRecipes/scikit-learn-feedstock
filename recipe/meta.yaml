@@ -11,8 +11,12 @@ source:
 
 build:
   number: 0
-  script: python -m pip install --no-deps --ignore-installed .  -vv
   skip: true  # [py<38]
+  script: 
+    # build the C files in parallel. This helps beat the
+    # time limit consistently on drone.io
+    - {{ PYTHON }} setup.py build_ext -j{{ CPU_COUNT }}
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed .  -vv
 
 requirements:
   build:
@@ -52,11 +56,12 @@ requirements:
 
 test:
   requires:
-    - pytest >=5.3.1
     - cython >=0.29.24
-    - pytest-xdist
-    - pytest-timeout
+    - llvm-openmp    # [osx]
     - pip
+    - pytest >=5.3.1
+    - pytest-timeout
+    - pytest-xdist
   imports:
     - sklearn
     - sklearn.cluster
