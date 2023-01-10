@@ -13,8 +13,6 @@ build:
   number: 0
   skip: true  # [py<38]
   script: 
-    # build the C files in parallel.
-    - {{ PYTHON }} setup.py build_ext -j{{ CPU_COUNT }}
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed .  -vv
 
 requirements:
