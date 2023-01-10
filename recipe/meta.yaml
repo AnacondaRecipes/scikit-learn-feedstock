@@ -23,7 +23,6 @@ requirements:
   host:
     - python
     - cython
-    - joblib
     - llvm-openmp    # [osx]
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
@@ -54,7 +53,6 @@ requirements:
 test:
   requires:
     - cython >=0.29.24
-    - llvm-openmp    # [osx]
     - pip
     - pytest >=5.3.1
     - pytest-timeout
