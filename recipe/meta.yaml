@@ -13,7 +13,7 @@ build:
   number: 0
   skip: true  # [py<38]
   script: 
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed .  -vv
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
 
 requirements:
   build:
