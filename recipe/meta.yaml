@@ -14,6 +14,8 @@ build:
   skip: true  # [py<38]
   script: 
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
+  ignore_run_exports:
+    - llvm-openmp  # [osx]
 
 requirements:
   build:
@@ -35,7 +37,6 @@ requirements:
   run:
     - python
     - joblib >=1.1.1
-    - llvm-openmp    # [osx]
     - {{ pin_compatible('numpy') }}
     - scipy >=1.3.2
     - threadpoolctl >=2.0.0
