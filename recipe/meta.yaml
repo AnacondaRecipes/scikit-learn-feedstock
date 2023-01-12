@@ -16,7 +16,7 @@ build:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
-    #- '*/libomp.dylib'    # [osx]
+    - '*/libomp.dylib'    # [osx]
 
 requirements:
   build:
