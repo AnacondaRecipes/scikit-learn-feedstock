@@ -14,8 +14,9 @@ build:
   skip: true  # [py<38]
   script: 
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
+  ignore_run_exports:
+    - llvm-openmp  # [osx]
   missing_dso_whitelist:
-    - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'    # [osx]
 
 requirements:
@@ -27,6 +28,7 @@ requirements:
     - python
     - cython
     - llvm-openmp    # [osx]
+    - libcxx         # [osx]
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
     - numpy   1.23   # [py>=311]
