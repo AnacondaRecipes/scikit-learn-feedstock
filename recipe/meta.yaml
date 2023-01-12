@@ -16,6 +16,9 @@ build:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
   ignore_run_exports:
     - llvm-openmp  # [osx]
+  missing_dso_whitelist:
+    - lib/libc++.1.dylib  # [osx]
+    - libomp.dylib        # [osx]
 
 requirements:
   build:
