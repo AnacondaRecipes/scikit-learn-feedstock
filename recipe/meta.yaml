@@ -17,8 +17,8 @@ build:
   ignore_run_exports:
     - llvm-openmp  # [osx]
   missing_dso_whitelist:
-    - lib/libc++.1.dylib  # [osx]
-    - libomp.dylib        # [osx]
+    - '*/libc++.1.dylib'  # [osx]
+    - '*/libomp.dylib'    # [osx]
 
 requirements:
   build:
