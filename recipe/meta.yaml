@@ -29,7 +29,7 @@ requirements:
     - llvm-openmp    # [osx]
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
-    - numpy   1.23   # [py>=311]
+    - numpy   1.22   # [py>=311]
     - pip
     - scipy
     - setuptools <60.0
