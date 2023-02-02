@@ -24,16 +24,17 @@ requirements:
     - {{ compiler('cxx') }}
     - llvm-openmp    # [osx]
   host:
+    # Host dependencies are pinned to last build
     - python
-    - cython
-    - llvm-openmp    # [osx]
+    - cython 0.29.32
+    - llvm-openmp 14.0.6  # [osx]
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
     - numpy   1.22   # [py>=311]
     - pip
-    - scipy
+    - scipy 1.9.3
     - setuptools <60.0
-    - threadpoolctl
+    - threadpoolctl 2.2.0
     - wheel
   run:
     - python
