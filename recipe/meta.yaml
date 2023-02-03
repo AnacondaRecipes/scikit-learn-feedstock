@@ -10,7 +10,7 @@ source:
   sha256: 84ad05fbb8529856645344a81b01a0bbff8818493535de08a5e85b2054adc31a
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<38]
   script: 
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
@@ -24,22 +24,24 @@ requirements:
     - {{ compiler('cxx') }}
     - llvm-openmp    # [osx]
   host:
+    # Host dependencies are pinned to last build
     - python
-    - cython
-    - llvm-openmp    # [osx]
+    - cython 0.29.32
+    - llvm-openmp 14.0.6  # [osx]
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
     - numpy   1.22   # [py>=311]
     - pip
-    - scipy
+    - scipy 1.9.3
     - setuptools <60.0
-    - threadpoolctl
+    - threadpoolctl 2.2.0
     - wheel
   run:
     - python
     - joblib >=1.1.1
     - {{ pin_compatible('numpy') }}
-    - scipy >=1.3.2
+    # https://github.com/scikit-learn/scikit-learn/issues/25403
+    - scipy >=1.3.2,<1.10.0
     - threadpoolctl >=2.0.0
     - _openmp_mutex  # [linux]
 
