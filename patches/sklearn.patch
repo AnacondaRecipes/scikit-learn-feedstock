@@ -1,0 +1,35 @@
+From 6a8023afa745f764b7a2307dc629ef08726e6eae Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Lo=C3=AFc=20Est=C3=A8ve?= <loic.esteve@ymail.com>
+Date: Mon, 8 Aug 2022 10:29:34 +0200
+Subject: [PATCH 1/2] [scipy-dev] Handle NaNs in scipy dev rankdata
+
+---
+ sklearn/model_selection/_search.py | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/sklearn/model_selection/_search.py b/sklearn/model_selection/_search.py
+index 4e2a0bd1c5207..25f682bac19e5 100644
+--- a/sklearn/model_selection/_search.py
++++ b/sklearn/model_selection/_search.py
+@@ -965,9 +965,13 @@ def _store(key_name, array, weights=None, splits=False, rank=False):
+             results["std_%s" % key_name] = array_stds
+ 
+             if rank:
+-                results["rank_%s" % key_name] = np.asarray(
+-                    rankdata(-array_means, method="min"), dtype=np.int32
+-                )
++                rank_result = rankdata(-array_means, method="min")
++                # when input is nan, scipy >= 1.10 rankdata returns nan. To
++                # keep previous behaviour nans are set to the
++                # maximum possible rank
++                rank_result[np.isnan(rank_result)] = len(rank_result)
++                rank_result = np.asarray(rank_result, dtype=np.int32)
++                results["rank_%s" % key_name] = rank_result
+ 
+         _store("fit_time", out["fit_time"])
+         _store("score_time", out["score_time"])
+
+From 9bf7ed592f023002546839171a2ee6cb15a7865d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Lo=C3=AFc=20Est=C3=A8ve?= <loic.esteve@ymail.com>
+Date: Tue, 16 Aug 2022 10:27:44 +0200
+Subject: [PATCH 2/2] Add whats_new entry
