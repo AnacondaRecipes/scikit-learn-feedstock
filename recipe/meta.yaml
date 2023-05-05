@@ -8,8 +8,7 @@ source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
   sha256: b7c0a9fb8dfcefcfc7ef8fe02a064d194980251d57efaea972cb76005afb3c63
   patches:
-   - patches/sklearn-1.patch
-   - patches/sklearn-2.patch
+   - patches/sklearn-pr24141-24483.patch
 
 build:
   number: 0
