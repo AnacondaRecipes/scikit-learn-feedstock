@@ -1,5 +1,5 @@
---- sklearn/model_selection/_search.orig.py	2023-05-05 19:59:15
-+++ sklearn/model_selection/_search.py	2023-05-05 19:59:31
+--- a/sklearn/model_selection/_search.py	2023-05-05 19:59:15
++++ b/sklearn/model_selection/_search.py	2023-05-05 19:59:31
 @@ -965,9 +965,14 @@
              results["std_%s" % key_name] = array_stds
  
