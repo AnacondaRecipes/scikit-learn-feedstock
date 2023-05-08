@@ -1,0 +1,23 @@
+From 2861a7bacc949415e900949cad8b1ff523ac7f29 Mon Sep 17 00:00:00 2001
+From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
+Date: Thu, 13 Oct 2022 14:49:03 +0200
+Subject: [PATCH 04/06] Update sklearn/model_selection/_search.py
+
+Co-authored-by: Olivier Grisel <olivier.grisel@ensta.org>
+---
+ sklearn/model_selection/_search.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sklearn/model_selection/_search.py b/sklearn/model_selection/_search.py
+index 525327d539bbd..3d067b2767f41 100644
+--- a/sklearn/model_selection/_search.py
++++ b/sklearn/model_selection/_search.py
+@@ -967,7 +967,7 @@ def _store(key_name, array, weights=None, splits=False, rank=False):
+             if rank:
+                 # When the fit/scoring fails `array_means` contains NaNs, we
+                 # will exclude them from the ranking process and consider them
+-                # as ties as worst performers.
++                # as tied with the worst performers.
+                 if np.isnan(array_means).all():
+                     # All fit/scoring routines failed.
+                     rank_result = np.ones_like(array_means, dtype=np.int32)

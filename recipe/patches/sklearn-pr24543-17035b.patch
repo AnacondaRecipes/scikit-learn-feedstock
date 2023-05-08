@@ -1,0 +1,40 @@
+From 17035bd689463e6e9599ac3318872348c75cbd10 Mon Sep 17 00:00:00 2001
+From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
+Date: Thu, 13 Oct 2022 16:42:11 +0200
+Subject: [PATCH 06/06] TST add a check for new behaviour
+
+---
+ sklearn/model_selection/tests/test_search.py | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/sklearn/model_selection/tests/test_search.py b/sklearn/model_selection/tests/test_search.py
+index b86dfbd77846f..194a5d7ea3ca1 100644
+--- a/sklearn/model_selection/tests/test_search.py
++++ b/sklearn/model_selection/tests/test_search.py
+@@ -1981,10 +1981,10 @@ def get_n_splits(self, *args, **kw):
+ @pytest.mark.parametrize(
+     "SearchCV, specialized_params",
+     [
+-        (GridSearchCV, {"param_grid": {"max_depth": [2, 3]}}),
++        (GridSearchCV, {"param_grid": {"max_depth": [2, 3, 5, 8]}}),
+         (
+             RandomizedSearchCV,
+-            {"param_distributions": {"max_depth": [2, 3]}, "n_iter": 2},
++            {"param_distributions": {"max_depth": [2, 3, 5, 8]}, "n_iter": 4},
+         ),
+     ],
+ )
+@@ -2025,6 +2025,13 @@ def __call__(self, estimator, X, y):
+     for msg, dataset in zip(warn_msg, set_with_warning):
+         assert f"One or more of the {dataset} scores are non-finite" in str(msg.message)
+ 
++    # all non-finite scores should be equally ranked last
++    last_rank = grid.cv_results_["rank_test_score"].max()
++    non_finite_mask = np.isnan(grid.cv_results_["mean_test_score"])
++    assert_array_equal(grid.cv_results_["rank_test_score"][non_finite_mask], last_rank)
++    # all finite scores should be better ranked than the non-finite scores
++    assert np.all(grid.cv_results_["rank_test_score"][~non_finite_mask] < last_rank)
++
+ 
+ def test_callable_multimetric_confusion_matrix():
+     # Test callable with many metrics inserts the correct names and metrics
