@@ -1,0 +1,29 @@
+--- a/sklearn/model_selection/tests/test_search.py   2023-05-08 15:20:20
++++ b/sklearn/model_selection/tests/test_search.py	2023-05-08 15:50:23
+@@ -1983,10 +1983,10 @@
+ @pytest.mark.parametrize(
+     "SearchCV, specialized_params",
+     [
+-        (GridSearchCV, {"param_grid": {"max_depth": [2, 3]}}),
++        (GridSearchCV, {"param_grid": {"max_depth": [2, 3, 5, 8]}}),
+         (
+             RandomizedSearchCV,
+-            {"param_distributions": {"max_depth": [2, 3]}, "n_iter": 2},
++            {"param_distributions": {"max_depth": [2, 3, 5, 8]}, "n_iter": 4},
+         ),
+     ],
+ )
+@@ -2027,6 +2027,13 @@
+     for msg, dataset in zip(warn_msg, set_with_warning):
+         assert f"One or more of the {dataset} scores are non-finite" in str(msg.message)
+ 
++    # all non-finite scores should be equally ranked last
++    last_rank = grid.cv_results_["rank_test_score"].max()
++    non_finite_mask = np.isnan(grid.cv_results_["mean_test_score"])
++    assert_array_equal(grid.cv_results_["rank_test_score"][non_finite_mask], last_rank)
++    # all finite scores should be better ranked than the non-finite scores
++    assert np.all(grid.cv_results_["rank_test_score"][~non_finite_mask] < last_rank)
++
+ 
+ def test_callable_multimetric_confusion_matrix():
+     # Test callable with many metrics inserts the correct names and metrics
