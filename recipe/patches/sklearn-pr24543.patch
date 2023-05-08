@@ -1,7 +1,7 @@
 From af3056b4c2fe12fecb7039f66845de29b705adbb Mon Sep 17 00:00:00 2001
 From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
 Date: Thu, 29 Sep 2022 15:33:05 +0200
-Subject: [PATCH 01/15] MAINT use nanmin to replace nan by finite values in
+Subject: [PATCH 01/06] MAINT use nanmin to replace nan by finite values in
  ranking of SearchCV
 
 ---
@@ -25,7 +25,7 @@ index 37b26eb1c72d3..11799fa0c47f7 100644
 From c7363b631a9b9f6721409d264a4878210cd94b95 Mon Sep 17 00:00:00 2001
 From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
 Date: Thu, 29 Sep 2022 15:40:00 +0200
-Subject: [PATCH 02/15] handle the case with only nan values
+Subject: [PATCH 02/06] handle the case with only nan values
 
 ---
  sklearn/model_selection/_search.py | 3 +++
@@ -49,7 +49,7 @@ index 11799fa0c47f7..81ef331458f68 100644
 From 88376417ab45ffab03176ee4602b284e724bbe46 Mon Sep 17 00:00:00 2001
 From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
 Date: Thu, 29 Sep 2022 20:48:07 +0200
-Subject: [PATCH 05/15] catch early the case of all failed fit/scoring
+Subject: [PATCH 03/06] catch early the case of all failed fit/scoring
  routinesd
 
 ---
@@ -96,7 +96,7 @@ index 81ef331458f68..525327d539bbd 100644
 From 2861a7bacc949415e900949cad8b1ff523ac7f29 Mon Sep 17 00:00:00 2001
 From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
 Date: Thu, 13 Oct 2022 14:49:03 +0200
-Subject: [PATCH 08/15] Update sklearn/model_selection/_search.py
+Subject: [PATCH 04/06] Update sklearn/model_selection/_search.py
 
 Co-authored-by: Olivier Grisel <olivier.grisel@ensta.org>
 ---
@@ -120,7 +120,7 @@ index 525327d539bbd..3d067b2767f41 100644
 From 78a51fa90d0d5825a20197dcc99242fb7203e11b Mon Sep 17 00:00:00 2001
 From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
 Date: Thu, 13 Oct 2022 14:52:35 +0200
-Subject: [PATCH 09/15] thomas comment
+Subject: [PATCH 05/06] thomas comment
 
 ---
  sklearn/model_selection/_search.py | 4 +---
@@ -145,7 +145,7 @@ index 3d067b2767f41..6ccbae2abc611 100644
 From 17035bd689463e6e9599ac3318872348c75cbd10 Mon Sep 17 00:00:00 2001
 From: Guillaume Lemaitre <g.lemaitre58@gmail.com>
 Date: Thu, 13 Oct 2022 16:42:11 +0200
-Subject: [PATCH 10/15] TST add a check for new behaviour
+Subject: [PATCH 06/06] TST add a check for new behaviour
 
 ---
  sklearn/model_selection/tests/test_search.py | 11 +++++++++--
