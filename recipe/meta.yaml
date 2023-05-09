@@ -58,6 +58,8 @@ requirements:
     - scipy 1.10.0          # [py>=311]
     - threadpoolctl >=2.0.0
     - _openmp_mutex  # [linux]
+  run_constrained:
+    - mkl <2023.1  # [osx and x86_64]
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
 {% set test_cpus = 1 %}
