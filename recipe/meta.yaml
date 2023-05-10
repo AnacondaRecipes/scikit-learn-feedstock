@@ -39,7 +39,7 @@ requirements:
     - python
     - cython >=0.29.24
     - joblib >=1.0.0
-    - llvm-openmp  # [osx]
+    - llvm-openmp 14.0.6  # [osx]
     - numpy   1.19  # [py==38 or py==39]
     - numpy   1.21  # [py==310]
     - numpy   1.23  # [py>=311]
