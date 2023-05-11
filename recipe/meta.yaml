@@ -22,7 +22,7 @@ source:
    - patches/sklearn-pr24543-17035b.patch # [>=py311]
 
 build:
-  number: 0
+  number: 1
   script: python -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
   skip: true  # [py<38]
   missing_dso_whitelist:
