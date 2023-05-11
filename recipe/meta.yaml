@@ -8,17 +8,18 @@ source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
   sha256: b7c0a9fb8dfcefcfc7ef8fe02a064d194980251d57efaea972cb76005afb3c63
   patches:
-   - patches/sklearn-pr24141.patch
-   - patches/sklearn-pr24483-aa2172.patch
-   - patches/sklearn-pr24483-a21429.patch
-   - patches/sklearn-pr24483-937b21.patch
-   - patches/sklearn-pr24483-0b3128.patch
-   - patches/sklearn-pr24543-af3056.patch
-   - patches/sklearn-pr24543-c7363b.patch
-   - patches/sklearn-pr24543-883764.patch
-   - patches/sklearn-pr24543-2861a7.patch
-   - patches/sklearn-pr24543-78a51f.patch
-   - patches/sklearn-pr24543-17035b.patch
+  # these fix issues introduced by SciPy 1.10, therefore are only relevant when building for py311
+   - patches/sklearn-pr24141.patch # [>=py311]
+   - patches/sklearn-pr24483-aa2172.patch # [>=py311]
+   - patches/sklearn-pr24483-a21429.patch # [>=py311]
+   - patches/sklearn-pr24483-937b21.patch # [>=py311]
+   - patches/sklearn-pr24483-0b3128.patch # [>=py311]
+   - patches/sklearn-pr24543-af3056.patch # [>=py311]
+   - patches/sklearn-pr24543-c7363b.patch # [>=py311]
+   - patches/sklearn-pr24543-883764.patch # [>=py311]
+   - patches/sklearn-pr24543-2861a7.patch # [>=py311]
+   - patches/sklearn-pr24543-78a51f.patch # [>=py311]
+   - patches/sklearn-pr24543-17035b.patch # [>=py311]
 
 build:
   number: 0
