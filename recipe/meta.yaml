@@ -55,6 +55,8 @@ requirements:
     - joblib
     - llvm-openmp  # [osx]
     - {{ pin_compatible('numpy') }}
+    # pinning scipy to 1.10.0 for py311 support
+    # scipy 1.9.3 also exists for py311 but other dependencies problems arise unless it's pinnged to scipy 1.10.0
     - scipy >=1.3.2,<=1.9.3 # [py<311]
     - scipy 1.10.0          # [py>=311]
     - threadpoolctl
