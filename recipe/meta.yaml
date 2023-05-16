@@ -93,7 +93,6 @@ about:
   license: BSD-3-Clause
   license_file: COPYING
   license_family: BSD
-  license_url: https://github.com/scikit-learn/scikit-learn/blob/{{ version }}/COPYING
   summary: A set of python modules for machine learning and data mining
   description: |
     Scikit-learn is an open source machine learning library that supports supervised and unsupervised learning. 
@@ -101,7 +100,6 @@ about:
     and many other utilities.
   doc_url: https://scikit-learn.org/dev/user_guide.html
   dev_url: https://github.com/scikit-learn/scikit-learn
-  doc_source_url: https://github.com/scikit-learn/scikit-learn/blob/{{ version }}/README.rst
 
 extra:
   recipe-maintainers:
