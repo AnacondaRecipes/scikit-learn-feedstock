@@ -45,7 +45,7 @@ requirements:
     - numpy   1.21  # [py==310]
     - numpy   1.23  # [py>=311]
     - pip
-    - scipy >=1.3.2 # [py<311]
+    - scipy 1.9.3 # [py<311]
     - scipy 1.10.0 # [py>=311]
     - setuptools <60.0
     - threadpoolctl
