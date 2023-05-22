@@ -1,0 +1,23 @@
+From 937b21cd3b80c4c4b14f123d6287ca570360d4e4 Mon Sep 17 00:00:00 2001
+From: Chiara Marmo <cmarmo@users.noreply.github.com>
+Date: Tue, 20 Sep 2022 15:23:13 -1000
+Subject: [PATCH 3/4] Update sklearn/model_selection/_search.py
+
+Co-authored-by: Meekail Zain <34613774+Micky774@users.noreply.github.com>
+---
+ sklearn/model_selection/_search.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sklearn/model_selection/_search.py b/sklearn/model_selection/_search.py
+index 981bc79d80715..911a915dbe5ba 100644
+--- a/sklearn/model_selection/_search.py
++++ b/sklearn/model_selection/_search.py
+@@ -966,7 +966,7 @@ def _store(key_name, array, weights=None, splits=False, rank=False):
+ 
+             if rank:
+                 # when input is nan, scipy >= 1.10 rankdata returns nan. To
+-                # keep previous behaviour nans are set to the
++                # keep previous behaviour nans are set to be smaller than the
+                 # minimum value in the array before ranking
+                 min_array_means = min(array_means) - 1
+                 np.nan_to_num(array_means, copy=False, nan=min_array_means)

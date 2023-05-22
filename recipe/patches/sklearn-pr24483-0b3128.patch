@@ -1,0 +1,22 @@
+From 0b31282b0b152999ead51d72881d8bac03f220d4 Mon Sep 17 00:00:00 2001
+From: Chiara Marmo <marmochiaskl@gmail.com>
+Date: Wed, 21 Sep 2022 08:46:02 -1000
+Subject: [PATCH 4/4] Copy the array of means to keep results unchanged.
+
+---
+ sklearn/model_selection/_search.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sklearn/model_selection/_search.py b/sklearn/model_selection/_search.py
+index 911a915dbe5ba..37b26eb1c72d3 100644
+--- a/sklearn/model_selection/_search.py
++++ b/sklearn/model_selection/_search.py
+@@ -969,7 +969,7 @@ def _store(key_name, array, weights=None, splits=False, rank=False):
+                 # keep previous behaviour nans are set to be smaller than the
+                 # minimum value in the array before ranking
+                 min_array_means = min(array_means) - 1
+-                np.nan_to_num(array_means, copy=False, nan=min_array_means)
++                array_means = np.nan_to_num(array_means, copy=True, nan=min_array_means)
+                 rank_result = rankdata(-array_means, method="min")
+                 rank_result = np.asarray(rank_result, dtype=np.int32)
+                 results["rank_%s" % key_name] = rank_result

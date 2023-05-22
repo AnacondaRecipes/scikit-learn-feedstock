@@ -7,37 +7,62 @@ package:
 source:
   url: https://github.com/scikit-learn/scikit-learn/archive/{{ version }}.tar.gz
   sha256: b7c0a9fb8dfcefcfc7ef8fe02a064d194980251d57efaea972cb76005afb3c63
+  patches: # [py>=311]
+  # these fix issues introduced by SciPy 1.10, therefore are only relevant when building for py311
+   - patches/sklearn-pr24141.patch # [py>=311]
+   - patches/sklearn-pr24483-aa2172.patch # [py>=311]
+   - patches/sklearn-pr24483-a21429.patch # [py>=311]
+   - patches/sklearn-pr24483-937b21.patch # [py>=311]
+   - patches/sklearn-pr24483-0b3128.patch # [py>=311]
+   - patches/sklearn-pr24543-af3056.patch # [py>=311]
+   - patches/sklearn-pr24543-c7363b.patch # [py>=311]
+   - patches/sklearn-pr24543-883764.patch # [py>=311]
+   - patches/sklearn-pr24543-2861a7.patch # [py>=311]
+   - patches/sklearn-pr24543-78a51f.patch # [py>=311]
+   - patches/sklearn-pr24543-17035b.patch # [py>=311]
 
 build:
-  number: 0
-  script: python -m pip install --no-deps --ignore-installed .  --verbose
+  number: 1
+  script: python -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
   skip: true  # [py<38]
+  missing_dso_whitelist:
+    - '*/libc++.1.dylib'  # [osx]
+    - '*/libomp.dylib'    # [osx]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - llvm-openmp  # [osx]
+    - patch # [not win and py>=311]
+    - m2-patch # [win and py>=311]
   host:
     - python
-    - cython >=0.29.24
-    - joblib >=1.0.0
-    - llvm-openmp  # [osx]
+    - cython 0.29.32
+    - joblib
+    - llvm-openmp 14.0.6  # [osx]
     - numpy   1.19  # [py==38 or py==39]
     - numpy   1.21  # [py==310]
+    - numpy   1.23  # [py>=311]
     - pip
-    - scipy >=1.3.2
+    - scipy 1.9.3 # [py<311]
+    - scipy 1.10.0 # [py>=311]
     - setuptools <60.0
-    - threadpoolctl >=2.0.0
+    - threadpoolctl
     - wheel
   run:
     - python
-    - joblib >=1.0.0
+    - joblib
     - llvm-openmp  # [osx]
     - {{ pin_compatible('numpy') }}
-    - scipy >=1.3.2
-    - threadpoolctl >=2.0.0
+    # pinning scipy to 1.10.0 for py311 support
+    # scipy 1.9.3 also exists for py311 but other dependencies problems arise unless it's pinnged to scipy 1.10.0
+    - scipy >=1.3.2,<=1.9.3 # [py<311]
+    - scipy 1.10.0          # [py>=311]
+    - threadpoolctl
     - _openmp_mutex  # [linux]
+  run_constrained:
+    - mkl <2023.1  # [osx and x86_64]
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
 {% set test_cpus = 1 %}
@@ -70,7 +95,6 @@ about:
   license: BSD-3-Clause
   license_file: COPYING
   license_family: BSD
-  license_url: https://github.com/scikit-learn/scikit-learn/blob/{{ version }}/COPYING
   summary: A set of python modules for machine learning and data mining
   description: |
     Scikit-learn is an open source machine learning library that supports supervised and unsupervised learning. 
@@ -78,7 +102,6 @@ about:
     and many other utilities.
   doc_url: https://scikit-learn.org/dev/user_guide.html
   dev_url: https://github.com/scikit-learn/scikit-learn
-  doc_source_url: https://github.com/scikit-learn/scikit-learn/blob/{{ version }}/README.rst
 
 extra:
   recipe-maintainers:

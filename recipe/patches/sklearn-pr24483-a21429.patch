@@ -1,0 +1,25 @@
+From a21429e9b4a469fa3376ec3ba3cddc743ca527ea Mon Sep 17 00:00:00 2001
+From: Chiara Marmo <marmochiaskl@gmail.com>
+Date: Tue, 20 Sep 2022 10:51:54 -1000
+Subject: [PATCH 2/4] Remove for loop.
+
+---
+ sklearn/model_selection/_search.py | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/sklearn/model_selection/_search.py b/sklearn/model_selection/_search.py
+index 5bb892f57c66f..981bc79d80715 100644
+--- a/sklearn/model_selection/_search.py
++++ b/sklearn/model_selection/_search.py
+@@ -968,9 +968,8 @@ def _store(key_name, array, weights=None, splits=False, rank=False):
+                 # when input is nan, scipy >= 1.10 rankdata returns nan. To
+                 # keep previous behaviour nans are set to the
+                 # minimum value in the array before ranking
+-                array_means = np.asarray(
+-                    [min(array_means) - 1 if np.isnan(a) else a for a in array_means]
+-                )
++                min_array_means = min(array_means) - 1
++                np.nan_to_num(array_means, copy=False, nan=min_array_means)
+                 rank_result = rankdata(-array_means, method="min")
+                 rank_result = np.asarray(rank_result, dtype=np.int32)
+                 results["rank_%s" % key_name] = rank_result
