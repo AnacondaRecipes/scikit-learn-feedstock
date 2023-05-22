@@ -34,8 +34,8 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - llvm-openmp  # [osx]
-    - patch # [not win]
-    - m2-patch # [win]
+    - patch # [not win and py>=311]
+    - m2-patch # [win and py>=311]
   host:
     - python
     - cython 0.29.32
