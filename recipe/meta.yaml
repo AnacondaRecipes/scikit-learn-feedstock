@@ -1,5 +1,6 @@
 {% set name = "scikit-learn" %}
 {% set version = "1.2.2" %}
+{% set sha256 = "992694e21ce4285aab71b09939d3ed7e5ddb41b8803eb98e10aaba927b74bdf1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +8,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: 992694e21ce4285aab71b09939d3ed7e5ddb41b8803eb98e10aaba927b74bdf1
+  sha256: {{ sha256 }} 
 
 build:
   number: 0
