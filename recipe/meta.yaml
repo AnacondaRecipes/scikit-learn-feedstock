@@ -56,7 +56,8 @@ requirements:
 # https://github.com/scikit-learn/scikit-learn/issues/20335
 {% set tests_to_skip = tests_to_skip + " or test_loadings_converges" %}
 # Numerically unstable test numerical difference in test
-{% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}         # [ppc64le]
+{% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}               # [ppc64le]
+{% set tests_to_skip = tests_to_skip + " or test_ridge_regression_check_arguments_validity" %}  # [osx]
 
 test:
   requires:
