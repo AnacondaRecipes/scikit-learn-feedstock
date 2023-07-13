@@ -22,28 +22,31 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - llvm-openmp    # [osx]
   host:
     # Host dependencies are pinned to last build
     - python
     - cython 0.29.33
-    - llvm-openmp 14.0.6  # [osx]
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
     - numpy   1.23   # [py>=311]
+    - llvm-openmp 14.0.6  # [osx]
     - pip
     - scipy 1.9.3   # [py<311]
     - scipy 1.10.0  # [py>=311]
     - setuptools
-    - threadpoolctl 2.2.0
     - wheel
+    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
+    - blas=*=openblas  # [osx and x86_64]
   run:
     - python
     - joblib >=1.1.1
     - {{ pin_compatible('numpy') }}
     - scipy >=1.5.0
     - threadpoolctl >=2.0.0
+    - llvm-openmp  # [osx]
     - _openmp_mutex  # [linux]
+    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
+    - blas=*=openblas  # [osx and x86_64]
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
 {% set test_cpus = 1 %}
@@ -53,6 +56,8 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_loadings_converges" %}
 # Numerically unstable test numerical difference in test
 {% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}         # [ppc64le]
+# The following test seems to be crashing CI OS.
+{% set tests_to_skip = tests_to_skip + " or test_non_negative_factorization_consistency" %}         # [osx and arm64]
 
 test:
   requires:
