@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<38]
+  skip: true  # [py<38 or py>310]
   script: 
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
@@ -28,11 +28,9 @@ requirements:
     - cython 0.29.33
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
-    - numpy   1.22   # [py>=311]
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy 1.9.3   # [py<311]
-    - scipy 1.10.0  # [py>=311]
+    - scipy 1.9.3
     - setuptools
     - wheel
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
