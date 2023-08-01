@@ -28,7 +28,7 @@ requirements:
     - cython 0.29.33
     - numpy   1.19   # [py<310]
     - numpy   1.21   # [py==310]
-    - numpy   1.22   # [py>=311]
+    - numpy   1.23   # [py>=311]
     - llvm-openmp 14.0.6  # [osx]
     - pip
     - scipy 1.9.3   # [py<311]
