@@ -25,14 +25,13 @@ requirements:
   host:
     # Host dependencies are pinned to last build
     - python
-    - cython 0.29.33
-    - numpy   1.19   # [py<310]
-    - numpy   1.21   # [py==310]
-    - numpy   1.23   # [py>=311]
+    - cython 0.29
+    - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
     - scipy 1.9.3   # [py<311]
-    - scipy 1.10.0  # [py>=311]
+    - scipy 1.10.0  # [py==311]
+    - scipy 1.11.1  # [py==312]
     - setuptools
     - wheel
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
