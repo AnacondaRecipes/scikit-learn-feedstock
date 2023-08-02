@@ -1,20 +1,19 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.2.2" %}
-{% set sha256 = "992694e21ce4285aab71b09939d3ed7e5ddb41b8803eb98e10aaba927b74bdf1" %}
+{% set version = "1.3.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: {{ sha256 }} 
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: "8be549886f5eda46436b6e555b0e4873b4f10aa21c07df45c4bc1735afbccd7a"
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<38]
   script: 
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'    # [osx]
@@ -23,31 +22,32 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - llvm-openmp    # [osx]
   host:
     # Host dependencies are pinned to last build
     - python
-    - cython 0.29.33
+    - cython 0.29
+    - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
-    - numpy   1.21   # [py<311]
-    - numpy   1.23   # [py>=311]
     - pip
     - scipy 1.9.3   # [py<311]
-    - scipy 1.10.0  # [py>=311]
+    - scipy 1.10.0  # [py==311]
+    - scipy 1.11.1  # [py==312]
     - setuptools
-    - threadpoolctl 2.2.0
     - wheel
+    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
+    - blas=*=openblas  # [osx and x86_64]
   run:
     - python
     - joblib >=1.1.1
     - {{ pin_compatible('numpy') }}
-    - scipy >=1.3.2
+    # There is some problem on osx-64 when numpy 1.25 for python 3.11 is used - 48 tests fail badly.
+    - numpy <1.25  # [osx-64 and py==311]
+    - scipy >=1.5.0
     - threadpoolctl >=2.0.0
+    - llvm-openmp  # [osx]
     - _openmp_mutex  # [linux]
-  run_constrained:
-    # intel-openmp 2023.1 and llvm-openmp 14.0.6 appear not be compatible
-    # leading to segfault in test_pairwise_distances_reduction.py::test_sqeuclidean_row_norms[42-float64-8-5-100]
-    - intel-openmp <2023.1  # [osx and x86_64]
+    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
+    - blas=*=openblas  # [osx and x86_64]
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
 {% set test_cpus = 1 %}
@@ -56,14 +56,15 @@ requirements:
 # https://github.com/scikit-learn/scikit-learn/issues/20335
 {% set tests_to_skip = tests_to_skip + " or test_loadings_converges" %}
 # Numerically unstable test numerical difference in test
-{% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}               # [ppc64le]
-{% set tests_to_skip = tests_to_skip + " or test_ridge_regression_check_arguments_validity" %}  # [osx]
+{% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}         # [ppc64le]
+# The following test seems to be crashing CI OS.
+{% set tests_to_skip = tests_to_skip + " or test_non_negative_factorization_consistency" %}         # [osx and arm64]
 
 test:
   requires:
     - cython >=0.29.24
     - pip
-    - pytest >=5.3.1
+    - pytest >=7.1.2
     - pytest-timeout
     - pytest-xdist
   imports:
