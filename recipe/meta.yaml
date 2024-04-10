@@ -25,7 +25,7 @@ requirements:
   host:
     # Host dependencies are pinned to last build
     - python
-    - cython 0.29
+    - cython 3.0.8
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
@@ -62,7 +62,7 @@ requirements:
 
 test:
   requires:
-    - cython >=0.29.24
+    - cython >=3.0.8
     - pip
     - pytest >=7.1.2
     - pytest-timeout
