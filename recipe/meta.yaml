@@ -42,7 +42,7 @@ requirements:
     - {{ pin_compatible('numpy') }}
     # There is some problem on osx-64 when numpy 1.25 for python 3.11 is used - 48 tests fail badly.
     - numpy <1.25  # [osx-64 and py==311]
-    - scipy >=1.5.0
+    - scipy >=1.6.0
     - threadpoolctl >=2.0.0
     - llvm-openmp  # [osx]
     - _openmp_mutex  # [linux]
