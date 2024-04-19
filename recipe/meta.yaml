@@ -11,7 +11,8 @@ source:
 
 build:
   number: 0
-  skip: true  # [x86_64 or py<39]
+  skip: true  # [osx and x86_64]
+  skip: true  # [py<39]
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
