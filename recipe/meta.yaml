@@ -29,15 +29,16 @@ requirements:
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy >=1.6.0  # [not aarch64]
-    - scipy >=1.8  # [aarch64]
+    - scipy 1.9.3   # [py<311]
+    - scipy 1.10.0  # [py==311]
+    - scipy 1.11  # [py==312]
     - setuptools
     - wheel
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
     - blas=*=openblas  # [osx and x86_64]
   run:
     - python
-    - joblib >=1.1.1
+    - joblib >=1.2.0
     - {{ pin_compatible('numpy') }}
     # There is some problem on osx-64 when numpy 1.25 for python 3.11 is used - 48 tests fail badly.
     - numpy <1.25  # [osx-64 and py==311]
