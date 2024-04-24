@@ -11,7 +11,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [osx and x86_64]
   skip: true  # [py<39]
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
@@ -41,8 +40,6 @@ requirements:
     - python
     - joblib >=1.2.0
     - {{ pin_compatible('numpy') }}
-    # There is some problem on osx-64 when numpy 1.25 for python 3.11 is used - 48 tests fail badly.
-    - numpy <1.25  # [osx-64 and py==311]
     - scipy >=1.6.0
     - threadpoolctl >=2.0.0
     - llvm-openmp  # [osx]
