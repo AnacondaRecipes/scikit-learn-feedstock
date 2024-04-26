@@ -29,9 +29,7 @@ requirements:
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy 1.9.3   # [py<311]
-    - scipy 1.10.0  # [py==311]
-    - scipy 1.11  # [py==312]
+    - scipy >=1.6.0
     - setuptools
     - wheel
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
