@@ -39,6 +39,9 @@ requirements:
     - joblib >=1.2.0
     - {{ pin_compatible('numpy') }}
     - scipy >=1.6.0
+    # Build fails on osx-64 without the newest version of scipy.
+    # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
+    - scipy 1.13.0  # [osx and x86_64]
     - threadpoolctl >=2.0.0
     - llvm-openmp  # [osx]
     - _openmp_mutex  # [linux]
