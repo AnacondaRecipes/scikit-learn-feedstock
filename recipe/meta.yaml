@@ -29,10 +29,10 @@ requirements:
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy >=1.6.0
+    - scipy =1.6.0
     - meson-python >=0.15.0
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
-    - blas=*=openblas     # [osx and x86_64]
+    - blas * openblas     # [osx and x86_64]
   run:
     - python
     - joblib >=1.2.0
@@ -45,7 +45,7 @@ requirements:
     - llvm-openmp         # [osx]
     - _openmp_mutex       # [linux]
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
-    - blas=*=openblas     # [osx and x86_64]
+    - blas * openblas     # [osx and x86_64]
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
 {% set test_cpus = 1 %}
@@ -60,7 +60,6 @@ requirements:
 
 test:
   requires:
-    - cython >=3.0.8
     - pip
     - pytest >=7.1.2
     - pytest-timeout
@@ -68,6 +67,8 @@ test:
     - matplotlib-base >=3.3.4
     - scikit-image >=0.17.2
     - pandas >=1.1.5
+    # No polars
+    #- polars >=0.20.23
     - pyarrow >=12.0.0
     - numpydoc >=1.2.0
     - pooch >=1.6.0
