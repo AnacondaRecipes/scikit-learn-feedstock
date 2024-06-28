@@ -1,16 +1,16 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.4.2" %}
+{% set version = "1.5.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: "daa1c471d95bad080c6e44b4946c9390a4842adc3082572c20e4f8884e39e959"
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/scikit_learn-{{ version }}.tar.gz
+  sha256: 789e3db01c750ed6d496fa2db7d50637857b451e57bcae863bff707c1247bef7
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<39]
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
@@ -25,15 +25,14 @@ requirements:
   host:
     # Host dependencies are pinned to last build
     - python
-    - cython 3.0.8
+    - cython >=3.0.10
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
     - scipy >=1.6.0
-    - setuptools
-    - wheel
+    - meson-python >=0.15.0
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
-    - blas=*=openblas  # [osx and x86_64]
+    - blas=*=openblas     # [osx and x86_64]
   run:
     - python
     - joblib >=1.2.0
@@ -41,12 +40,12 @@ requirements:
     - scipy >=1.6.0
     # Build fails on osx-64 without the newest version of scipy.
     # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
-    - scipy >=1.13.0  # [osx and x86_64]
-    - threadpoolctl >=2.0.0
-    - llvm-openmp  # [osx]
-    - _openmp_mutex  # [linux]
+    - scipy >=1.13.0      # [osx and x86_64]
+    - threadpoolctl >=3.1.0
+    - llvm-openmp         # [osx]
+    - _openmp_mutex       # [linux]
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
-    - blas=*=openblas  # [osx and x86_64]
+    - blas=*=openblas     # [osx and x86_64]
 
 # Some tests take alot of memory, and seem to cause segfaults when memory runs out
 {% set test_cpus = 1 %}
