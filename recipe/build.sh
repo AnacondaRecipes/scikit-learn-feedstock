@@ -23,4 +23,4 @@ $PYTHON -m build -w -n -x \
     -Csetup-args=${MESON_ARGS_REDUCED// / -Csetup-args=} \
     || (cat builddir/meson-logs/meson-log.txt && exit 1)
 
-pip install dist/*.whl
+pip install -vv --no-deps --no-build-isolation dist/*.whl
