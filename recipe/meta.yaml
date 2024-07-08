@@ -12,8 +12,6 @@ source:
 build:
   number: 0
   skip: True  # [py<39]
-  script:
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'    # [osx]
@@ -32,6 +30,7 @@ requirements:
     - scipy =1.9.3        # [py<312]
     - scipy =1.11.3       # [py>=312]
     - meson-python >=0.15.0
+    - python-build
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
     - blas * openblas     # [osx and x86_64]
   run:
