@@ -11,7 +11,9 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<39]
+  skip: True              # [py<39 or (win and py>311)]
+  script:                 # [not win]
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'    # [osx]
