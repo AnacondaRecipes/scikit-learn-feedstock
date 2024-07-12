@@ -11,6 +11,9 @@ source:
 
 build:
   number: 0
+  # win-64 py312 builds are extremely fickle with a high failure rate
+  # at random places (suggestive of resource depletion).  We have a
+  # manual build instead.
   skip: True              # [py<39 or (win and py>311)]
   script:                 # [not win]
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
