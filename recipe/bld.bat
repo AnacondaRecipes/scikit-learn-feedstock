@@ -26,7 +26,7 @@ if exist %BUILDDIR% (
 %PYTHON% -m build --wheel --no-isolation --skip-dependency-check ^
   -Cbuilddir=%BUILDDIR%
 if errorlevel 1 (
-  type builddir\meson-logs\meson-log.txt
+  type %BUILDDIR%\meson-logs\meson-log.txt
   rmdir /Q /S %BUILDDIR%
   exit /b 1
 )
