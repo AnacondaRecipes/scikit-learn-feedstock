@@ -1,5 +1,5 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.5.0" %}
+{% set version = "1.5.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/scikit_learn-{{ version }}.tar.gz
-  sha256: 789e3db01c750ed6d496fa2db7d50637857b451e57bcae863bff707c1247bef7
+  sha256: 0ea5d40c0e3951df445721927448755d3fe1d80833b0b7308ebff5d2a45e6414
 
 build:
   number: 0
@@ -32,17 +32,17 @@ requirements:
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy =1.9.3        # [py<312]
-    - scipy =1.11.3       # [py>=312]
+    - scipy  1.9.3        # [py<312]
+    - scipy  1.11.3       # [py>=312]
     - meson-python >=0.15.0
-    - python-build
+    - python-build        # [win]
     # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
     - blas * openblas     # [osx and x86_64]
   run:
     - python
     - joblib >=1.2.0
     - {{ pin_compatible('numpy') }}
-    - scipy >=1.6.0
+    - scipy >=1.6.0      # [not (osx and x86_64)]
     # Build fails on osx-64 without the newest version of scipy.
     # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
     - scipy >=1.13.0      # [osx and x86_64]
