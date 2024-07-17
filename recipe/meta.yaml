@@ -34,9 +34,11 @@ requirements:
     - pip
     - scipy  1.9.3        # [py<312]
     - scipy  1.11.3       # [py>=312]
-    - meson-python >=0.15.0
+    - meson-python >=0.16.0
     - python-build        # [win]
-    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
+    # mkl variant pulls in intel-openmp which conflicts with
+    # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
+    # etc.
     - blas * openblas     # [osx and x86_64]
   run:
     - python
@@ -49,10 +51,13 @@ requirements:
     - threadpoolctl >=3.1.0
     - llvm-openmp         # [osx]
     - _openmp_mutex       # [linux]
-    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
+    # mkl variant pulls in intel-openmp which conflicts with
+    # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
+    # etc.
     - blas * openblas     # [osx and x86_64]
 
-# Some tests take alot of memory, and seem to cause segfaults when memory runs out
+# Some tests take alot of memory, and seem to cause segfaults when
+# memory runs out
 {% set test_cpus = 1 %}
 
 {% set tests_to_skip = "_not_a_real_test" %}
@@ -106,9 +111,10 @@ about:
   license_family: BSD
   summary: A set of python modules for machine learning and data mining
   description: |
-    Scikit-learn is an open source machine learning library that supports supervised and unsupervised learning.
-    It also provides various tools for model fitting, data preprocessing, model selection, model evaluation,
-    and many other utilities.
+    Scikit-learn is an open source machine learning library that
+    supports supervised and unsupervised learning.  It also provides
+    various tools for model fitting, data preprocessing, model
+    selection, model evaluation, and many other utilities.
   doc_url: https://scikit-learn.org/dev/user_guide.html
   dev_url: https://github.com/scikit-learn/scikit-learn
 
