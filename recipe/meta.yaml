@@ -1,19 +1,19 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.4.2" %}
+{% set version = "1.5.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: "daa1c471d95bad080c6e44b4946c9390a4842adc3082572c20e4f8884e39e959"
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/scikit_learn-{{ version }}.tar.gz
+  sha256: 0ea5d40c0e3951df445721927448755d3fe1d80833b0b7308ebff5d2a45e6414
 
 build:
-  number: 1
-  skip: true  # [py<39]
-  script:
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
+  number: 0
+  skip: True              # [py<39]
+  script:                 # [not win]
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'    # [osx]
@@ -25,30 +25,36 @@ requirements:
   host:
     # Host dependencies are pinned to last build
     - python
-    - cython 3.0.8
+    - cython >=3.0.10
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy >=1.6.0
-    - setuptools
-    - wheel
-    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
-    - blas=*=openblas  # [osx and x86_64]
+    - scipy  1.9.3        # [py<312]
+    - scipy  1.11.3       # [py>=312]
+    - meson-python >=0.16.0
+    - python-build        # [win]
+    # mkl variant pulls in intel-openmp which conflicts with
+    # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
+    # etc.
+    - blas * openblas     # [osx and x86_64]
   run:
     - python
     - joblib >=1.2.0
     - {{ pin_compatible('numpy') }}
-    - scipy >=1.6.0
+    - scipy >=1.6.0      # [not (osx and x86_64)]
     # Build fails on osx-64 without the newest version of scipy.
     # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
-    - scipy >=1.13.0  # [osx and x86_64]
-    - threadpoolctl >=2.0.0
-    - llvm-openmp  # [osx]
-    - _openmp_mutex  # [linux]
-    # mkl variant pulls in intel-openmp which conflicts with llvm-openmp. i.e. force to use openblas variant of numpy, scipy, etc.
-    - blas=*=openblas  # [osx and x86_64]
+    - scipy >=1.13.0      # [osx and x86_64]
+    - threadpoolctl >=3.1.0
+    - llvm-openmp         # [osx]
+    - _openmp_mutex       # [linux]
+    # mkl variant pulls in intel-openmp which conflicts with
+    # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
+    # etc.
+    - blas * openblas     # [osx and x86_64]
 
-# Some tests take alot of memory, and seem to cause segfaults when memory runs out
+# Some tests take alot of memory, and seem to cause segfaults when
+# memory runs out
 {% set test_cpus = 1 %}
 
 {% set tests_to_skip = "_not_a_real_test" %}
@@ -61,7 +67,6 @@ requirements:
 
 test:
   requires:
-    - cython >=3.0.8
     - pip
     - pytest >=7.1.2
     - pytest-timeout
@@ -69,6 +74,8 @@ test:
     - matplotlib-base >=3.3.4
     - scikit-image >=0.17.2
     - pandas >=1.1.5
+    # No polars
+    #- polars >=0.20.23
     - pyarrow >=12.0.0
     - numpydoc >=1.2.0
     - pooch >=1.6.0
@@ -101,9 +108,10 @@ about:
   license_family: BSD
   summary: A set of python modules for machine learning and data mining
   description: |
-    Scikit-learn is an open source machine learning library that supports supervised and unsupervised learning.
-    It also provides various tools for model fitting, data preprocessing, model selection, model evaluation,
-    and many other utilities.
+    Scikit-learn is an open source machine learning library that
+    supports supervised and unsupervised learning.  It also provides
+    various tools for model fitting, data preprocessing, model
+    selection, model evaluation, and many other utilities.
   doc_url: https://scikit-learn.org/dev/user_guide.html
   dev_url: https://github.com/scikit-learn/scikit-learn
 
