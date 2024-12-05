@@ -6,6 +6,7 @@ extra_labels_for_os:
   # We aren't strictly tied to ventura but we do get kernel panics on
   # the builders if we're not.
   osx-arm64: [ventura]
+  osx-64: [ventura]
 
 channels:
   - https://staging.continuum.io/prefect/fs/scipy-feedstock/pr37/4bc9e1b
