@@ -1,5 +1,5 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.5.1" %}
+{% set version = "1.5.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/scikit_learn-{{ version }}.tar.gz
-  sha256: 0ea5d40c0e3951df445721927448755d3fe1d80833b0b7308ebff5d2a45e6414
+  sha256: b4237ed7b3fdd0a4882792e68ef2545d5baa50aca3bb45aa7df468138ad8f94d
 
 build:
   number: 0
-  skip: True              # [py<39]
+  # scipy is not compatible with numpy 2.0 for py39
+  skip: True              # [py<39 or py>312]
   script:                 # [not win]
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
   missing_dso_whitelist:
@@ -26,11 +27,11 @@ requirements:
     # Host dependencies are pinned to last build
     - python
     - cython >=3.0.10
-    - numpy {{ numpy }}
+    - numpy 2.0  # [py<313]
+    - numpy 2.1  # [py>=313]
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy  1.9.3        # [py<312]
-    - scipy  1.11.3       # [py>=312]
+    - scipy
     - meson-python >=0.16.0
     - python-build        # [win]
     # mkl variant pulls in intel-openmp which conflicts with
@@ -40,7 +41,7 @@ requirements:
   run:
     - python
     - joblib >=1.2.0
-    - {{ pin_compatible('numpy') }}
+    - numpy
     - scipy >=1.6.0      # [not (osx and x86_64)]
     # Build fails on osx-64 without the newest version of scipy.
     # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
