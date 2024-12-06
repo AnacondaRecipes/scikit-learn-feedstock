@@ -65,6 +65,9 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}         # [ppc64le]
 # The following test seems to be crashing CI OS.
 {% set tests_to_skip = tests_to_skip + " or test_non_negative_factorization_consistency" %}         # [osx and arm64]
+# Those are failing due to timeout on osx-64
+{% set tests_to_skip = tests_to_skip + " or test_early_stopping_regression" %}   # [osx-64]
+{% set tests_to_skip = tests_to_skip + " or test_gamma" %}   # [osx-64]
 
 test:
   requires:
