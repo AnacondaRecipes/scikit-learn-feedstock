@@ -41,7 +41,7 @@ requirements:
   run:
     - python
     - joblib >=1.2.0
-    - numpy
+    - numpy >=1.19.5
     - scipy >=1.6.0      # [not (osx and x86_64)]
     # Build fails on osx-64 without the newest version of scipy.
     # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
