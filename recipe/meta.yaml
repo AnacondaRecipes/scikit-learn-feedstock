@@ -31,7 +31,7 @@ requirements:
     - numpy 2.1  # [py>=313]
     - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy
+    - scipy >=1.6.0
     - meson-python >=0.16.0
     - python-build        # [win]
     # mkl variant pulls in intel-openmp which conflicts with
