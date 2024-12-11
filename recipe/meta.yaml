@@ -13,8 +13,8 @@ build:
   number: 0
   # scipy is not compatible with numpy 2.0 for py39
   skip: True              # [py<39 or py>312]
-  script:                 # [not win]
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
+  script:
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'    # [osx]
