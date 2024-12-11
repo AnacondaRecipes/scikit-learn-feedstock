@@ -6,5 +6,6 @@ extra_labels_for_os:
   # We aren't strictly tied to ventura but we do get kernel panics on
   # the builders if we're not.
   osx-arm64: [ventura]
-  osx-64: [ventura]
-  
+
+build_env_vars:
+  ANACONDA_ROCKET_ENABLE_PY313 : yes
