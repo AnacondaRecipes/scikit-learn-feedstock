@@ -23,20 +23,21 @@ if exist %BUILDDIR% (
   mkdir %BUILDDIR%
 )
 
-%PYTHON% -m build --wheel --no-isolation --skip-dependency-check --verbose ^
-  -Cbuilddir=%BUILDDIR%
+@REM %PYTHON% -m build --wheel --no-isolation --skip-dependency-check --verbose ^
+@REM   -Cbuilddir=%BUILDDIR%
+%PYTHON% -m pip install . --no-deps --ignore-installed --no-build-isolation -vv -b %BUILDDIR%
 if errorlevel 1 (
   type %BUILDDIR%\meson-logs\meson-log.txt
   rmdir /Q /S %BUILDDIR%
   exit /b 1
 )
 
-for /f %%f in ('dir /b /S .\dist') do (
-  pip install %%f
-  if %errorlevel% neq 0 (
-    rmdir /Q /S %BUILDDIR%
-    exit 1
-  )
-)
+@REM for /f %%f in ('dir /b /S .\dist') do (
+@REM   pip install %%f
+@REM   if %errorlevel% neq 0 (
+@REM     rmdir /Q /S %BUILDDIR%
+@REM     exit 1
+@REM   )
+@REM )
 
 rmdir /Q /S %BUILDDIR%
