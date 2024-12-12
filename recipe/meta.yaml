@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  skip: True              # [py<39]
+  skip: True              # [py<39 or (not win)]
   script:                 # [not win]
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
   missing_dso_whitelist:
