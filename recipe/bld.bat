@@ -25,7 +25,7 @@ if exist %BUILDDIR% (
 
 @REM %PYTHON% -m build --wheel --no-isolation --skip-dependency-check --verbose ^
 @REM   -Cbuilddir=%BUILDDIR%
-%PYTHON% -m pip install . --no-deps --ignore-installed --no-build-isolation -vv -b %BUILDDIR%
+%PYTHON% -m pip install . --no-deps --ignore-installed --no-build-isolation -vv
 if errorlevel 1 (
   type %BUILDDIR%\meson-logs\meson-log.txt
   rmdir /Q /S %BUILDDIR%

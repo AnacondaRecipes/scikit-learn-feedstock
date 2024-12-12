@@ -12,8 +12,10 @@ source:
 build:
   number: 0
   skip: True              # [py<39 or (not win)]
-  script:                 # [not win]
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
+  script:
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
+  script_env:  # [win]
+   - TMPDIR=\AD25  # [win]
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'    # [osx]
