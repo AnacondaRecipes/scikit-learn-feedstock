@@ -10,7 +10,7 @@ REM already exist).
 REM
 REM NB \AD24 is Anaconda Distribution 2024 which avoids \tmp - a
 REM well-known name
-set BUILDDIR=\AD24
+set BUILDDIR=\AD25
 
 REM Try to avoid race conditions between a potential rmdir immediately
 REM followed by a mkdir.  Also "cd X; rmdir ." avoids deleting the
