@@ -23,7 +23,7 @@ if exist %BUILDDIR% (
   mkdir %BUILDDIR%
 )
 
-%PYTHON% -m build --wheel --no-isolation --skip-dependency-check --vv ^
+%PYTHON% -m build --wheel --no-isolation --skip-dependency-check -vv ^
   -Cbuilddir=%BUILDDIR%
 if errorlevel 1 (
   type %BUILDDIR%\meson-logs\meson-log.txt
