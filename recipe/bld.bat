@@ -11,6 +11,7 @@ REM
 REM NB \AD24 is Anaconda Distribution 2024 which avoids \tmp - a
 REM well-known name
 set BUILDDIR=\AD25
+set HERE=%cd%
 
 REM Try to avoid race conditions between a potential rmdir immediately
 REM followed by a mkdir.  Also "cd X; rmdir ." avoids deleting the
@@ -19,25 +20,25 @@ REM permissions.
 if exist %BUILDDIR% (
   cd %BUILDDIR%
   rmdir /Q /S .
+  cd %HERE%
 ) else (
   mkdir %BUILDDIR%
 )
 
-@REM %PYTHON% -m build --wheel --no-isolation --skip-dependency-check --verbose ^
-@REM   -Cbuilddir=%BUILDDIR%
-%PYTHON% -m pip install . --no-deps --ignore-installed --no-build-isolation -vv
+%PYTHON% -m build --wheel --no-isolation --skip-dependency-check ^
+  -Cbuilddir=%BUILDDIR%
 if errorlevel 1 (
   type %BUILDDIR%\meson-logs\meson-log.txt
   rmdir /Q /S %BUILDDIR%
   exit /b 1
 )
 
-@REM for /f %%f in ('dir /b /S .\dist') do (
-@REM   pip install %%f
-@REM   if %errorlevel% neq 0 (
-@REM     rmdir /Q /S %BUILDDIR%
-@REM     exit 1
-@REM   )
-@REM )
+for /f %%f in ('dir /b /S .\dist') do (
+  pip install %%f
+  if %errorlevel% neq 0 (
+    rmdir /Q /S %BUILDDIR%
+    exit 1
+  )
+)
 
 rmdir /Q /S %BUILDDIR%
