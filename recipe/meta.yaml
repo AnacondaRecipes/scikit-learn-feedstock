@@ -76,7 +76,8 @@ test:
     - pytest-timeout
     - pytest-xdist
     - matplotlib-base >=3.3.4
-    - scikit-image >=0.17.2
+    # Missing scikit-image for py313
+    - scikit-image >=0.17.2  # [py<313]
     - pandas >=1.1.5
     # No polars
     #- polars >=0.20.23
