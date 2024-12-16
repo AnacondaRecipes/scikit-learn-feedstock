@@ -25,7 +25,8 @@ requirements:
   host:
     # Host dependencies are pinned to last build
     - python
-    - cython 3.0.10
+    - cython 3.0.10  # [py<313]
+    - cython 3.0.11  # [py>=313]
     - numpy 2.0  # [py<313]
     - numpy 2.1  # [py>=313]
     - llvm-openmp 14.0.6  # [osx]
