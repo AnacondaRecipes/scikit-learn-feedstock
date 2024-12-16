@@ -68,6 +68,8 @@ requirements:
 # Those are failing due to timeout on osx-64
 {% set tests_to_skip = tests_to_skip + " or test_early_stopping_regression" %}   # [osx-64]
 {% set tests_to_skip = tests_to_skip + " or test_gamma" %}   # [osx-64]
+# Require scikit-image, missing in 3.13
+{% set tests_to_skip = tests_to_skip + " or test_function_docstring" %}   # [py>=313]
 
 test:
   requires:
