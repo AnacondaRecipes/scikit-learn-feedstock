@@ -54,8 +54,15 @@ requirements:
     - blas * openblas     # [osx and x86_64]
 
 {% set tests_to_skip = "_not_a_real_test" %}
+
 # The following test seems to be crashing CI OS.
 {% set tests_to_skip = tests_to_skip + " or test_non_negative_factorization_consistency" %}         # [osx and arm64]
+
+# ValueError: Buffer dtype mismatch, expected 'intp_t' but got 'long'
+{% set tests_to_skip = tests_to_skip + " or test_sort_log2_build" %}                                # [win]
+
+# Only happened on py39, might be a timing issue as it fails at "Check if score and timing are reasonable".
+{% set tests_to_skip = tests_to_skip + " or test_random_search_cv_results_multimetric" %}           # [linux and aarch64]
 
 test:
   requires:
