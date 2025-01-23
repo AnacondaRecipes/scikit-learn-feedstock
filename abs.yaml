@@ -5,6 +5,3 @@ extra_labels_for_os:
 
 build_env_vars:
   ANACONDA_ROCKET_ENABLE_PY313 : yes
-
-channels:
-  - https://staging.continuum.io/prefect/fs/scikit-image-feedstock/pr22/164d613
