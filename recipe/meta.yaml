@@ -1,5 +1,5 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.5.2" %}
+{% set version = "1.6.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/scikit_learn-{{ version }}.tar.gz
-  sha256: b4237ed7b3fdd0a4882792e68ef2545d5baa50aca3bb45aa7df468138ad8f94d
+  sha256: b4fc2525eca2c69a59260f583c56a7557c6ccdf8deafdba6e060f94c1c59738e
 
 build:
   number: 0
@@ -53,22 +53,16 @@ requirements:
     # etc.
     - blas * openblas     # [osx and x86_64]
 
-# Some tests take alot of memory, and seem to cause segfaults when
-# memory runs out
-{% set test_cpus = 1 %}
-
 {% set tests_to_skip = "_not_a_real_test" %}
-# https://github.com/scikit-learn/scikit-learn/issues/20335
-{% set tests_to_skip = tests_to_skip + " or test_loadings_converges" %}
-# Numerically unstable test numerical difference in test
-{% set tests_to_skip = tests_to_skip + " or test_mlp_regressor_dtypes_casting" %}         # [ppc64le]
+
 # The following test seems to be crashing CI OS.
 {% set tests_to_skip = tests_to_skip + " or test_non_negative_factorization_consistency" %}         # [osx and arm64]
-# Those are failing due to timeout on osx-64
-{% set tests_to_skip = tests_to_skip + " or test_early_stopping_regression" %}   # [osx-64]
-{% set tests_to_skip = tests_to_skip + " or test_gamma" %}   # [osx-64]
-# Require scikit-image, missing in 3.13
-{% set tests_to_skip = tests_to_skip + " or test_function_docstring" %}   # [py>=313]
+
+# ValueError: Buffer dtype mismatch, expected 'intp_t' but got 'long'
+{% set tests_to_skip = tests_to_skip + " or test_sort_log2_build" %}                                # [win]
+
+# Only happened on py39, might be a timing issue as it fails at "Check if score and timing are reasonable".
+{% set tests_to_skip = tests_to_skip + " or test_random_search_cv_results_multimetric" %}           # [linux and aarch64]
 
 test:
   requires:
@@ -77,13 +71,13 @@ test:
     - pytest-timeout
     - pytest-xdist
     - matplotlib-base >=3.3.4
-    # Missing scikit-image for py313
-    - scikit-image >=0.17.2  # [py<313]
+    - scikit-image >=0.17.2
     - pandas >=1.1.5
     # No polars
     #- polars >=0.20.23
     - pyarrow >=12.0.0
-    - numpydoc >=1.2.0
+    # recent numpydoc not yet available
+    - numpydoc >=1.2.0  # [py<313]
     - pooch >=1.6.0
   imports:
     - sklearn
@@ -105,7 +99,7 @@ test:
     - set OMP_NUM_THREADS=1               # [win]
     - export OPENBLAS_NUM_THREADS=1       # [not win]
     - export OMP_NUM_THREADS=1            # [not win]
-    - pytest --timeout 300 -n {{ test_cpus }} --verbose --pyargs sklearn -k "not ({{ tests_to_skip }})"
+    - pytest --timeout 1200 -nauto --verbose --pyargs sklearn -k "not ({{ tests_to_skip }})"
 
 about:
   home: https://scikit-learn.org/

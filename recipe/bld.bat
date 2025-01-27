@@ -25,7 +25,9 @@ if exist %BUILDDIR% (
   mkdir %BUILDDIR%
 )
 
+REM Setting -j3 to limit parallelization in order to avoid random cython compilation issues.
 %PYTHON% -m build --wheel --no-isolation --skip-dependency-check ^
+  -Ccompile-args=-j3 ^
   -Cbuilddir=%BUILDDIR%
 if errorlevel 1 (
   type %BUILDDIR%\meson-logs\meson-log.txt
