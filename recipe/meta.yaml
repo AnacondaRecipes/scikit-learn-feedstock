@@ -75,7 +75,7 @@ test:
     # configparser.NoSectionError: No section: 'blas'
     #- pymc-experimental 0.0.9 # scikit-learn
     # AttributeError: `np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.
-    - pynndescent 0.5.10 # scikit-learn >=0.18
+    #- pynndescent 0.5.10 # scikit-learn >=0.18
     - pyod 1.1.3 # scikit-learn >=0.22.0
     - pyts 0.12.0 # scikit-learn >=0.22.1
     - scikit-bio 0.5.6 # scikit-learn >=0.19.1
