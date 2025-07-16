@@ -52,6 +52,101 @@ requirements:
     - blas=*=openblas  # [osx and x86_64]
 
 test:
+  downstreams:
+    - category_encoders 2.8.0 # scikit-learn >=1.6.0
+    - dash-bio 0.2.0 # scikit-learn >=0.20.1
+    # ImportError: cannot import name 'collections_to_dsk' from 'dask.base'
+    #- dask-glm 0.3.2 # scikit-learn >=0.18
+    # ModuleNotFoundError: No module named 'pyarrow'
+    #- dask-ml 2025.1.0 # scikit-learn >=1.6.1
+    - imbalanced-learn 0.13.0 # scikit-learn >=1.3.2,<2
+    - kmodes 0.12.2 # scikit-learn >=0.22.0
+    - libpysal 4.13.0 # scikit-learn >=1.1
+    # lime/tests/test_scikit_image.py::TestSegmentationAlgorithm::test_instanciate_segmentation_algorithm - TypeError: quickshift() got an unexpected keyword argument 'random_seed'
+    #- lime 0.2.0.1 # scikit-learn >=0.18
+    - mapclassify 2.9.0 # scikit-learn >=1.4
+    - mlflow 2.18.0 # scikit-learn <2
+    - mlflow 2.0.1 # scikit-learn <2.0.0a0
+    - mlxtend 0.23.4 # scikit-learn >=1.3.1
+    - opentsne 1.0.2 # scikit-learn >=0.20
+    - orange3 3.38.1 # scikit-learn >=1.5.1
+    - pmdarima 2.0.4 # scikit-learn >=0.22
+    #- prince 0.13.0 # scikit-learn >=1.0.2,<2.0.0
+    # configparser.NoSectionError: No section: 'blas'
+    #- pymc-experimental 0.0.9 # scikit-learn
+    # AttributeError: `np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.
+    - pynndescent 0.5.10 # scikit-learn >=0.18
+    - pyod 1.1.3 # scikit-learn >=0.22.0
+    - pyts 0.12.0 # scikit-learn >=0.22.1
+    - scikit-bio 0.5.6 # scikit-learn >=0.19.1
+    - shap 0.47.2 # scikit-learn
+    - skl2onnx 1.16.0 # scikit-learn >=0.19
+    - snowflake-ml-python 1.0.2 # scikit-learn >=1.2.1,<2
+    - tbats 1.1.3 # scikit-learn
+    - treeinterpreter 0.2.3 # scikit-learn >=0.17
+    # >   raise TypeError(msg % type(expected_warning))
+    # E   TypeError: exceptions must be derived from Warning, not <class 'NoneType'>
+    #- umap-learn 0.5.4 # scikit-learn >=0.22
+    #>   raise ReadError(f"file could not be opened successfully:\n{error_msgs_summary}")
+    #E   tarfile.ReadError: file could not be opened successfully:
+    #E   - method gz: ReadError('not a gzip file')
+    #E   - method bz2: ReadError('not a bzip2 file')
+    #E   - method xz: ReadError('not an lzma file')
+    #E   - method tar: ReadError('bad checksum')
+    #- woodwork 0.31.0 # scikit-learn >=1.1.0
+    - yellowbrick 1.5 # scikit-learn >=1.0.0
+    - esda 2.7.0 # scikit-learn >=1.2
+    - keras-tuner 1.4.7 # scikit-learn
+    # AttributeError: `np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead.
+    #- openml 0.12.2 # scikit-learn >=0.18
+    - segregation 1.3.0 # scikit-learn
+    - tsfresh 0.18.0 # scikit-learn >=0.22.0
+    - scikit-optimize 0.9.0 # scikit-learn >=0.20.0
+    - mlforecast 0.10.0 # scikit-learn
+    - lightfm 1.17 # scikit-learn
+    - fastai 2.7.18 # scikit-learn
+    - scispacy 0.5.2 # scikit-learn >=0.20.3
+    - scikit-learn-extra 0.3.0 # scikit-learn >=0.24.0
+    - quantile-forest 1.1.2 # scikit-learn >=1.0
+    - pycaret 3.0.2 # scikit-learn >=1.0
+    - pycaret 3.3.2 # scikit-learn >1.4.0
+    - sentence-transformers 3.4.1 # scikit-learn
+    - evidently 0.4.39 # scikit-learn >=1.0.1
+    - hdbscan 0.8.33 # scikit-learn >=0.20
+    - pymc-marketing 0.1.1 # scikit-learn >=1.1.1
+    - interpret-core 0.4.4 # scikit-learn >=0.18.1
+    - recordlinkage 0.16 # scikit-learn >=1
+    - bertopic 0.15.0 # scikit-learn >=0.22.2.post1
+    - u8darts 0.33.0 # scikit-learn >=1.0.1
+    - nlp_primitives 2.10.0 # scikit-learn >=0.20.0
+    - feature_engine 1.6.2 # scikit-learn >=1.0.0
+    - evalml 0.82.0 # scikit-learn >=1.3.0
+    - seqeval 1.2.2 # scikit-learn >=0.21.3
+    - pytorch-metric-learning 1.7.3 # scikit-learn
+    - pytorch-tabnet 4.1.0 # scikit-learn >0.21
+    - chainladder 0.8.23 # scikit-learn >=0.23
+    - hierarchicalforecast 0.4.1 # scikit-learn
+    - hmmlearn 0.3.2 # scikit-learn >=0.16,!=0.22.0
+    - py_entitymatching 0.4.2 # scikit-learn >=0.22
+    - imbalanced-ensemble 0.2.2 # scikit-learn >=1.5.0
+    - dedupe 2.0.23 # scikit-learn
+    - autoviml 0.1.800 # scikit-learn >=0.24
+    - smac 1.2 # scikit-learn >=0.22.0
+    - alibi-detect 0.11.4 # scikit-learn >=0.20.2,<2.0.0
+    - data-science-utils 1.7.3 # scikit-learn >=1.2.2
+    - trulens-feedback 1.1.0 # scikit-learn >=1.3.0,<2.0.0
+    - autots 0.6.15 # scikit-learn >=0.20.0
+    - lightweight-mmm 0.1.9 # scikit-learn
+    - scikit-mobility 1.3.1 # scikit-learn
+    - recbole 1.2.0 # scikit-learn >=0.23.2
+    - flaml 1.2.4 # scikit-learn >=0.24
+    - nannyml 0.12.1 # scikit-learn >=1.2,<2.0
+    - scrubadub 2.0.1 # scikit-learn
+    - metric-learn 0.7.0 # scikit-learn >=0.21.3,<1.3.2
+    - tslearn 0.6.3 # scikit-learn
+    - smote-variants 1.0.1 # scikit-learn
+    - skrub 0.5.1 # scikit-learn >=1.2.1
+    - scikit-llm 1.4.1 # scikit-learn >=1.1.0,<2.0.0
   imports:
     - sklearn
     - sklearn.cluster
