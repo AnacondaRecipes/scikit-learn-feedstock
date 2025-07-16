@@ -1,5 +1,6 @@
 {% set name = "scikit-learn" %}
 {% set version = "1.7.0" %}
+{% set sha256 = "c01e869b15aec88e2cdb73d27f15bdbe03bce8e2fb43afbe77c45d399e73a5a3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +8,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: c01e869b15aec88e2cdb73d27f15bdbe03bce8e2fb43afbe77c45d399e73a5a3
+  sha256: {{ sha256 }}
 
 build:
   number: 0
+  script_env:  # [win]
+    - SCIKIT_LEARN_SHA256={{ sha256 }}  # [win]
   script:  # [not win]
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
   missing_dso_whitelist:

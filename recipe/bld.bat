@@ -10,7 +10,13 @@ REM already exist).
 REM
 REM NB \AD24 is Anaconda Distribution 2024 which avoids \tmp - a
 REM well-known name
-set BUILDDIR=\AD25_c01e869b15aec88e2cdb73d27f15bdbe03bce8e2fb43afbe77c45d399e73a5a3
+set CURRENT_SHA256=%SCIKIT_LEARN_SHA256%
+echo Building with SHA256: %CURRENT_SHA256%
+if "%CURRENT_SHA256%"=="" (
+    echo ERROR: SHA256 not found in environment
+    exit /b 1
+)
+set BUILDDIR=\AD25_%CURRENT_SHA256%
 set HERE=%cd%
 
 REM Try to avoid race conditions between a potential rmdir immediately
