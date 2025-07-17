@@ -3,5 +3,8 @@ extra_labels_for_os:
   # the builders if we're not.
   osx-arm64: [ventura]
 
-build_env_vars:
-  ANACONDA_ROCKET_ENABLE_PY313 : yes
+channels:
+  - https://staging.continuum.io/prefect/fs/dask-ml-feedstock/pr10/488c9dc
+  - https://staging.continuum.io/prefect/fs/esda-feedstock/pr6/3a8514a
+  - https://staging.continuum.io/prefect/fs/lime-feedstock/pr4/b9b0da7
+  - https://staging.continuum.io/prefect/fs/openml-feedstock/pr2/00592f7

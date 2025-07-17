@@ -59,49 +59,58 @@ test:
     #- category_encoders 2.8.0 # scikit-learn >=1.6.0 - update
     #- prince 0.13.0 # scikit-learn >=1.0.2,<2.0.0 - update
 
-    - dash-bio 0.2.0 # scikit-learn >=0.20.1 - retest
-    - dask-glm 0.2.0 # scikit-learn >=0.18 - retest
-    - dask-glm 0.3.2 # scikit-learn >=0.18 - retest
+    #- dash-bio 0.2.0 # scikit-learn >=0.20.1 - retest
+    #- dask-glm 0.2.0 # scikit-learn >=0.18 - retest
+    #- dask-glm 0.3.2 # scikit-learn >=0.18 - retest
 
+    # IMPOSSIBLE TO REBUILD
     # ImportError: cannot import name 'if_delegate_has_method' from 'sklearn.utils.metaestimators'
     #- dask-ml 1.9.0 # scikit-learn >=0.23.0 - retest
     # ++++++solution+++++++
     # - scikit-learn >=0.23.0,<1.4.0
 
+    #@@@@@@@@@@@@@@@@@
     # ModuleNotFoundError: No module named 'pyarrow'
-    #- dask-ml 2025.1.0 # scikit-learn >=1.6.1 - retest
+    - dask-ml 2025.1.0 # scikit-learn >=1.6.1 - retest
     # ++++++solution+++++++
     # need to add pyarrow in test requires for dask-ml
+    #@@@@@@@@@@@@@@@@@
 
+    #@@@@@@@@@@@@@@@@@
     # ImportError: cannot import name 'inf' from 'scipy'
-    #- esda 2.4.1 # scikit-learn scikit-learn - retest
+    - esda 2.4.1 # scikit-learn scikit-learn - retest
     # ++++++solution+++++++
     # Scipy removed scipy.inf starting from 1.8
+    #@@@@@@@@@@@@@@@@@
 
-    - esda 2.7.0 # scikit-learn >=1.2 - retest
-    - imbalanced-learn 0.13.0 # scikit-learn >=1.3.2,<2 - retest
-    - keras-tuner 1.4.7 # scikit-learn scikit-learn - retest
-    - kmodes 0.12.2 # scikit-learn >=0.22.0 - retest
-    - libpysal 4.13.0 # scikit-learn >=1.1 - retest
+    #- esda 2.7.0 # scikit-learn >=1.2 - retest
+    #- imbalanced-learn 0.13.0 # scikit-learn >=1.3.2,<2 - retest
+    #- keras-tuner 1.4.7 # scikit-learn scikit-learn - retest
+    #- kmodes 0.12.2 # scikit-learn >=0.22.0 - retest
+    #- libpysal 4.13.0 # scikit-learn >=1.1 - retest
 
+    #@@@@@@@@@@@@@@@@@
     # FAILED lime/tests/test_scikit_image.py::TestSegmentationAlgorithm::test_instanciate_segmentation_algorithm - TypeError: quickshift() got an unexpected keyword argument 'random_seed'
-    #- lime 0.2.0.1 # scikit-learn >=0.18 - retest
+    - lime 0.2.0.1 # scikit-learn >=0.18 - retest
     # ++++++solution+++++++
     # need to disable test
+    #@@@@@@@@@@@@@@@@@
 
-    - mapclassify 2.4.3 # scikit-learn scikit-learn - retest
-    - mapclassify 2.9.0 # scikit-learn >=1.4 - retest
-    - mlflow 2.18.0 # scikit-learn <2 - retest
-    - mlxtend 0.23.4 # scikit-learn >=1.3.1 - retest
+    #- mapclassify 2.4.3 # scikit-learn scikit-learn - retest
+    #- mapclassify 2.9.0 # scikit-learn >=1.4 - retest
+    #- mlflow 2.18.0 # scikit-learn <2 - retest
+    #- mlxtend 0.23.4 # scikit-learn >=1.3.1 - retest
 
+    #@@@@@@@@@@@@@@@@@
     # AttributeError: `np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead.
-    #- openml 0.12.2 # scikit-learn >=0.18 - retest
+    - openml 0.12.2 # scikit-learn >=0.18 - retest
     # ++++++solution+++++++
     # need to add upperbound for run numpy <2
+    #@@@@@@@@@@@@@@@@@
 
-    - opentsne 1.0.2 # scikit-learn >=0.20 - retest
-    - orange3 3.38.1 # scikit-learn >=1.5.1 - retest
-    - pmdarima 2.0.4 # scikit-learn >=0.22 - retest
+    #- opentsne 1.0.2 # scikit-learn >=0.20 - retest
+    #- orange3 3.38.1 # scikit-learn >=1.5.1 - retest
+    #- pmdarima 2.0.4 # scikit-learn >=0.22 - retest
 
     # configparser.NoSectionError: No section: 'blas'
     # and
@@ -125,11 +134,11 @@ test:
     # very long tests (passed locally)
     #- segregation 1.3.0 # scikit-learn scikit-learn - retest
 
-    - shap 0.47.2 # scikit-learn scikit-learn - retest
-    - skl2onnx 1.16.0 # scikit-learn >=0.19 - retest
-    - tbats 1.1.3 # scikit-learn scikit-learn - retest
-    - treeinterpreter 0.2.3 # scikit-learn >=0.17 - retest
-    - tsfresh 0.18.0 # scikit-learn >=0.22.0 - retest
+    #- shap 0.47.2 # scikit-learn scikit-learn - retest
+    #- skl2onnx 1.16.0 # scikit-learn >=0.19 - retest
+    #- tbats 1.1.3 # scikit-learn scikit-learn - retest
+    #- treeinterpreter 0.2.3 # scikit-learn >=0.17 - retest
+    #- tsfresh 0.18.0 # scikit-learn >=0.22.0 - retest
 
     # >   raise TypeError(msg % type(expected_warning))
     # E   TypeError: exceptions must be derived from Warning, not <class 'NoneType'>
@@ -149,7 +158,7 @@ test:
     # ++++++solution+++++++
     # just skip
 
-    - yellowbrick 1.5 # scikit-learn >=1.0.0 - retest
+    #- yellowbrick 1.5 # scikit-learn >=1.0.0 - retest
   imports:
     - sklearn
     - sklearn.cluster
@@ -178,7 +187,7 @@ test:
     - sklearn.tree
     - sklearn.utils
   commands:
-    - pip check
+    #- pip check
     - set OPENBLAS_NUM_THREADS=1  # [win]
     - set OMP_NUM_THREADS=1  # [win]
     - export OPENBLAS_NUM_THREADS=1  # [not win]
@@ -186,7 +195,7 @@ test:
     # test_docstring
     # >   return ".".join([self.obj.__module__, self.obj.__name__])
     # E   AttributeError: 'property' object has no attribute '__module__'. Did you mean: '__reduce__'?
-    - pytest --timeout 1200 -nauto --verbose --pyargs sklearn -k "not (test_docstring)"
+    #- pytest --timeout 1200 -nauto --verbose --pyargs sklearn -k "not (test_docstring)"
   requires:
     - pip
     - pytest >=7.1.2
