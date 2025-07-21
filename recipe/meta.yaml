@@ -59,9 +59,9 @@ test:
     #- category_encoders 2.8.0 # scikit-learn >=1.6.0 - update
     #- prince 0.13.0 # scikit-learn >=1.0.2,<2.0.0 - update
 
-    #- dash-bio 0.2.0 # scikit-learn >=0.20.1 - retest
-    #- dask-glm 0.2.0 # scikit-learn >=0.18 - retest
-    #- dask-glm 0.3.2 # scikit-learn >=0.18 - retest
+    - dash-bio 0.2.0 # scikit-learn >=0.20.1 - retest
+    - dask-glm 0.2.0 # scikit-learn >=0.18 - retest
+    - dask-glm 0.3.2 # scikit-learn >=0.18 - retest
 
     # IMPOSSIBLE TO REBUILD (archive)
     #@@@@@@@@@@@@@@@@@
@@ -85,11 +85,11 @@ test:
     # Scipy removed scipy.inf starting from 1.8
     #@@@@@@@@@@@@@@@@@
 
-    #- esda 2.7.0 # scikit-learn >=1.2 - retest
-    #- imbalanced-learn 0.13.0 # scikit-learn >=1.3.2,<2 - retest
-    #- keras-tuner 1.4.7 # scikit-learn scikit-learn - retest
-    #- kmodes 0.12.2 # scikit-learn >=0.22.0 - retest
-    #- libpysal 4.13.0 # scikit-learn >=1.1 - retest
+    - esda 2.7.0 # scikit-learn >=1.2 - retest
+    - imbalanced-learn 0.13.0 # scikit-learn >=1.3.2,<2 - retest
+    - keras-tuner 1.4.7 # scikit-learn scikit-learn - retest
+    - kmodes 0.12.2 # scikit-learn >=0.22.0 - retest
+    - libpysal 4.13.0 # scikit-learn >=1.1 - retest
 
     #@@@@@@@@@@@@@@@@@
     # FAILED lime/tests/test_scikit_image.py::TestSegmentationAlgorithm::test_instanciate_segmentation_algorithm - TypeError: quickshift() got an unexpected keyword argument 'random_seed'
@@ -98,10 +98,10 @@ test:
     # need to disable test
     #@@@@@@@@@@@@@@@@@
 
-    #- mapclassify 2.4.3 # scikit-learn scikit-learn - retest
-    #- mapclassify 2.9.0 # scikit-learn >=1.4 - retest
-    #- mlflow 2.18.0 # scikit-learn <2 - retest
-    #- mlxtend 0.23.4 # scikit-learn >=1.3.1 - retest
+    - mapclassify 2.4.3 # scikit-learn scikit-learn - retest
+    - mapclassify 2.9.0 # scikit-learn >=1.4 - retest
+    - mlflow 2.18.0 # scikit-learn <2 - retest
+    - mlxtend 0.23.4 # scikit-learn >=1.3.1 - retest
 
     #@@@@@@@@@@@@@@@@@
     # AttributeError: `np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead.
@@ -110,9 +110,9 @@ test:
     # need to add upperbound for run numpy <2
     #@@@@@@@@@@@@@@@@@
 
-    #- opentsne 1.0.2 # scikit-learn >=0.20 - retest
-    #- orange3 3.38.1 # scikit-learn >=1.5.1 - retest
-    #- pmdarima 2.0.4 # scikit-learn >=0.22 - retest
+    - opentsne 1.0.2 # scikit-learn >=0.20 - retest
+    - orange3 3.38.1 # scikit-learn >=1.5.1 - retest
+    - pmdarima 2.0.4 # scikit-learn >=0.22 - retest
 
     # impossible to rebuild (archive)
     #@@@@@@@@@@@@@@@@@
@@ -123,31 +123,31 @@ test:
     #@@@@@@@@@@@@@@@@@
 
     # AttributeError: `np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.
-    #- pynndescent 0.5.4 # scikit-learn >=0.18 - retest
+    - pynndescent 0.5.4 # scikit-learn >=0.18 - retest
     # ++++++solution+++++++
     # need to add upperbound for run numpy <2
 
     # AttributeError: `np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.
-    #- pynndescent 0.5.10 # scikit-learn >=0.18 - retest
+    - pynndescent 0.5.10 # scikit-learn >=0.18 - retest
     # ++++++solution+++++++
     # need to add upperbound for run numpy <2
 
-    #+- pyod 1.1.3 # scikit-learn >=0.22.0 - retest
-    #+- pyts 0.12.0 # scikit-learn >=0.22.1 - retest
-    #+- scikit-bio 0.5.6 # scikit-learn >=0.19.1 - retest
+    - pyod 1.1.3 # scikit-learn >=0.22.0 - retest
+    - pyts 0.12.0 # scikit-learn >=0.22.1 - retest
+    - scikit-bio 0.5.6 # scikit-learn >=0.19.1 - retest
 
     # very long tests (passed locally)
     #- segregation 1.3.0 # scikit-learn scikit-learn - retest
 
-    #- shap 0.47.2 # scikit-learn scikit-learn - retest
-    #- skl2onnx 1.16.0 # scikit-learn >=0.19 - retest
-    #- tbats 1.1.3 # scikit-learn scikit-learn - retest
-    #- treeinterpreter 0.2.3 # scikit-learn >=0.17 - retest
-    #- tsfresh 0.18.0 # scikit-learn >=0.22.0 - retest
+    - shap 0.47.2 # scikit-learn scikit-learn - retest
+    - skl2onnx 1.16.0 # scikit-learn >=0.19 - retest
+    - tbats 1.1.3 # scikit-learn scikit-learn - retest
+    - treeinterpreter 0.2.3 # scikit-learn >=0.17 - retest
+    - tsfresh 0.18.0 # scikit-learn >=0.22.0 - retest
 
     # >   raise TypeError(msg % type(expected_warning))
     # E   TypeError: exceptions must be derived from Warning, not <class 'NoneType'>
-    #- umap-learn 0.5.4 # scikit-learn >=0.22 - retest
+    - umap-learn 0.5.4 # scikit-learn >=0.22 - retest
     # ++++++solution+++++++
     # ignore umap/tests/test_umap_ops.py tests
     # or
@@ -159,11 +159,11 @@ test:
     # E   - method bz2: ReadError('not a bzip2 file')
     # E   - method xz: ReadError('not an lzma file')
     # E   - method tar: ReadError('bad checksum')
-    #- woodwork 0.31.0 # scikit-learn >=1.1.0 - retest
+    - woodwork 0.31.0 # scikit-learn >=1.1.0 - retest
     # ++++++solution+++++++
     # just skip
 
-    #- yellowbrick 1.5 # scikit-learn >=1.0.0 - retest
+    - yellowbrick 1.5 # scikit-learn >=1.0.0 - retest
   imports:
     - sklearn
     - sklearn.cluster
