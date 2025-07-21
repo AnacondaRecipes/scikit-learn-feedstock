@@ -10,4 +10,4 @@ channels:
   - https://staging.continuum.io/prefect/fs/openml-feedstock/pr2/00592f7
   - https://staging.continuum.io/prefect/fs/pynndescent-feedstock/pr6/8837563
   - https://staging.continuum.io/prefect/fs/pynndescent-feedstock/pr7/805de21
-  - https://staging.continuum.io/prefect/fs/woodwork-feedstock/pr7/a4d708e
+  - https://staging.continuum.io/prefect/fs/woodwork-feedstock/pr7/9c53453

@@ -151,7 +151,11 @@ test:
     - skl2onnx 1.16.0 # scikit-learn >=0.19 - retest
     - tbats 1.1.3 # scikit-learn scikit-learn - retest
     - treeinterpreter 0.2.3 # scikit-learn >=0.17 - retest
-    - tsfresh 0.18.0 # scikit-learn >=0.22.0 - retest
+    # win failed
+    # import tsfresh
+    # import pkg_resources
+    # ModuleNotFoundError: No module named 'pkg_resources'
+    - tsfresh 0.18.0 # scikit-learn >=0.22.0 - retest  # [not win]
 
     # >   raise TypeError(msg % type(expected_warning))
     # E   TypeError: exceptions must be derived from Warning, not <class 'NoneType'>
