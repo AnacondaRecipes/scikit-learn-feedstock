@@ -88,7 +88,11 @@ test:
     #@@@@@@@@@@@@@@@@@
 
     - esda 2.7.0 # scikit-learn >=1.2 - retest
-    - imbalanced-learn 0.13.0 # scikit-learn >=1.3.2,<2 - retest
+    # Could not solve for environment specs
+    # ├─ imbalanced-learn =0.13.0 * is installable and it requires https://github.com/AnacondaRecipes/imbalanced-learn-feedstock/blob/main/recipe/meta.yaml#L29C7-L29C21
+    # │  └─ sklearn-compat >=0.1,<1 *, which requires https://github.com/AnacondaRecipes/sklearn-compat-feedstock/blob/main/recipe/meta.yaml#L24
+    # │     └─ scikit-learn >=1.2,<1.7 *, which can be installed;
+    #- imbalanced-learn 0.13.0 # scikit-learn >=1.3.2,<2 - retest
     - keras-tuner 1.4.7 # scikit-learn scikit-learn - retest
     - kmodes 0.12.2 # scikit-learn >=0.22.0 - retest
     - libpysal 4.13.0 # scikit-learn >=1.1 - retest
