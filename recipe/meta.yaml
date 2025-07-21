@@ -63,11 +63,13 @@ test:
     #- dask-glm 0.2.0 # scikit-learn >=0.18 - retest
     #- dask-glm 0.3.2 # scikit-learn >=0.18 - retest
 
-    # IMPOSSIBLE TO REBUILD
+    # IMPOSSIBLE TO REBUILD (archive)
+    #@@@@@@@@@@@@@@@@@
     # ImportError: cannot import name 'if_delegate_has_method' from 'sklearn.utils.metaestimators'
     #- dask-ml 1.9.0 # scikit-learn >=0.23.0 - retest
     # ++++++solution+++++++
     # - scikit-learn >=0.23.0,<1.4.0
+    #@@@@@@@@@@@@@@@@@
 
     #@@@@@@@@@@@@@@@@@
     # ModuleNotFoundError: No module named 'pyarrow'
@@ -112,18 +114,21 @@ test:
     #- orange3 3.38.1 # scikit-learn >=1.5.1 - retest
     #- pmdarima 2.0.4 # scikit-learn >=0.22 - retest
 
+    # impossible to rebuild (archive)
+    #@@@@@@@@@@@@@@@@@
     # configparser.NoSectionError: No section: 'blas'
     # and
     # KeyError: 'blas__ldflags'
     #- pymc-experimental 0.0.9 # scikit-learn scikit-learn - retest
+    #@@@@@@@@@@@@@@@@@
 
     # AttributeError: `np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.
-    #- pynndescent 0.5.10 # scikit-learn >=0.18 - retest
+    #- pynndescent 0.5.4 # scikit-learn >=0.18 - retest
     # ++++++solution+++++++
     # need to add upperbound for run numpy <2
 
     # AttributeError: `np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.
-    #- pynndescent 0.5.4 # scikit-learn >=0.18 - retest
+    #- pynndescent 0.5.10 # scikit-learn >=0.18 - retest
     # ++++++solution+++++++
     # need to add upperbound for run numpy <2
 
