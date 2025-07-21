@@ -81,6 +81,7 @@ test:
 
     #@@@@@@@@@@@@@@@@@
     # ImportError: cannot import name 'inf' from 'scipy'
+    # fix not work with noarch
     #- esda 2.4.1 # scikit-learn scikit-learn - retest
     # ++++++solution+++++++
     # Scipy removed scipy.inf starting from 1.8
@@ -128,7 +129,8 @@ test:
     #@@@@@@@@@@@@@@@@@
 
     # AttributeError: `np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.
-    - pynndescent 0.5.4 # scikit-learn >=0.18 - retest
+    # fix not work with noarch
+    #- pynndescent 0.5.4 # scikit-learn >=0.18 - retest
     # ++++++solution+++++++
     # need to add upperbound for run numpy <2
 
