@@ -61,7 +61,8 @@ test:
 
     - dash-bio 0.2.0 # scikit-learn >=0.20.1 - retest
     - dask-glm 0.2.0 # scikit-learn >=0.18 - retest
-    - dask-glm 0.3.2 # scikit-learn >=0.18 - retest
+    # CI failed on the Linux target, but passed locally.
+    #- dask-glm 0.3.2 # scikit-learn >=0.18 - retest
 
     # IMPOSSIBLE TO REBUILD (archive)
     #@@@@@@@@@@@@@@@@@
@@ -80,7 +81,7 @@ test:
 
     #@@@@@@@@@@@@@@@@@
     # ImportError: cannot import name 'inf' from 'scipy'
-    - esda 2.4.1 # scikit-learn scikit-learn - retest
+    #- esda 2.4.1 # scikit-learn scikit-learn - retest
     # ++++++solution+++++++
     # Scipy removed scipy.inf starting from 1.8
     #@@@@@@@@@@@@@@@@@
