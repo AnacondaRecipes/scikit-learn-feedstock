@@ -1,6 +1,6 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.7.0" %}
-{% set sha256 = "c01e869b15aec88e2cdb73d27f15bdbe03bce8e2fb43afbe77c45d399e73a5a3" %}
+{% set version = "1.7.1" %}
+{% set sha256 = "24b3f1e976a4665aa74ee0fcaac2b8fccc6ae77c8e07ab25da3ba6d3292b9802" %}
 
 package:
   name: {{ name|lower }}
@@ -38,10 +38,7 @@ requirements:
     - python
     - joblib >=1.2.0
     - numpy >=1.22.0
-    - scipy >=1.8.0      # [not (osx and x86_64)]
-    # Build fails on osx-64 without the newest version of scipy.
-    # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
-    - scipy >=1.13.0,<1.16.0  # [osx and x86_64]
+    - scipy >=1.8.0
     - threadpoolctl >=3.1.0
     - llvm-openmp  # [osx]
     - _openmp_mutex  # [linux]
