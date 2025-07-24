@@ -12,10 +12,8 @@ source:
 
 build:
   number: 0
-  script_env:  # [win]
-    - SCIKIT_LEARN_SHA256={{ sha256 }}  # [win]
-  script:  # [not win]
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
+  script:
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'  # [osx]

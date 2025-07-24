@@ -2,12 +2,3 @@ extra_labels_for_os:
   # We aren't strictly tied to ventura but we do get kernel panics on
   # the builders if we're not.
   osx-arm64: [ventura]
-
-channels:
-  #- https://staging.continuum.io/prefect/fs/dask-ml-feedstock/pr10/488c9dc
-  - https://staging.continuum.io/prefect/fs/esda-feedstock/pr6/3a8514a
-  - https://staging.continuum.io/prefect/fs/lime-feedstock/pr4/b9b0da7
-  - https://staging.continuum.io/prefect/fs/openml-feedstock/pr2/00592f7
-  - https://staging.continuum.io/prefect/fs/pynndescent-feedstock/pr6/8837563
-  - https://staging.continuum.io/prefect/fs/pynndescent-feedstock/pr7/805de21
-  - https://staging.continuum.io/prefect/fs/woodwork-feedstock/pr7/9c53453
