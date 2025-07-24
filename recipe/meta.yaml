@@ -20,8 +20,6 @@ build:
     - '*/libc++.1.dylib'  # [osx]
     - '*/libomp.dylib'  # [osx]
   skip: True  # [py<310]
-  #ignore_run_exports:
-  #  - numpy
 
 requirements:
   build:
@@ -82,28 +80,25 @@ test:
     - sklearn.tree
     - sklearn.utils
   commands:
-    #- pip check
+    - pip check
     - set OPENBLAS_NUM_THREADS=1  # [win]
     - set OMP_NUM_THREADS=1  # [win]
     - export OPENBLAS_NUM_THREADS=1  # [not win]
     - export OMP_NUM_THREADS=1  # [not win]
-    # test_docstring
-    # >   return ".".join([self.obj.__module__, self.obj.__name__])
-    # E   AttributeError: 'property' object has no attribute '__module__'. Did you mean: '__reduce__'?
-    #- pytest --timeout 1200 -nauto --verbose --pyargs sklearn -k "not (test_docstring)"
+    - pytest --timeout 1200 -nauto --verbose --pyargs sklearn
   requires:
     - pip
     - pytest >=7.1.2
     - pytest-timeout
     - pytest-xdist
     - matplotlib-base >=3.5.0
-    - scikit-image >=0.17.2
+    - scikit-image >=0.19
     - pandas >=1.4.0
-    # No polars
+    # latest polars in main = 0.20.18
     #- polars >=0.20.23
     - pyarrow >=12.0.0
-    # recent numpydoc not yet available
-    - numpydoc >=1.2.0  # [py<313]
+    # tests docstring failed with numpydoc >=1.9.0
+    - numpydoc >=1.2.0,<1.9.0  # [py<313]
     - pooch >=1.6.0
 
 about:
