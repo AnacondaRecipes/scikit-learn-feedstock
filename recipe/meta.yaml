@@ -1,108 +1,103 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.6.1" %}
+{% set version = "1.7.1" %}
+{% set sha256 = "24b3f1e976a4665aa74ee0fcaac2b8fccc6ae77c8e07ab25da3ba6d3292b9802" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/scikit_learn-{{ version }}.tar.gz
-  sha256: b4fc2525eca2c69a59260f583c56a7557c6ccdf8deafdba6e060f94c1c59738e
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
   number: 0
-  skip: True  # [py<39]
-  script:                                                                                  # [not win]
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv  # [not win]
+  script:
+    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
     - '*/libc++.1.dylib'  # [osx]
-    - '*/libomp.dylib'    # [osx]
+    - '*/libomp.dylib'  # [osx]
+  skip: True  # [py<310]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
-    # Host dependencies are pinned to last build
-    - python
-    - cython >=3.0.10
-    - numpy 2.0  # [py<313]
-    - numpy 2.1  # [py>=313]
-    - llvm-openmp 14.0.6  # [osx]
     - pip
-    - scipy >=1.6.0
-    - meson-python >=0.16.0
-    - python-build        # [win]
-    # mkl variant pulls in intel-openmp which conflicts with
-    # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
-    # etc.
-    - blas * openblas     # [osx and x86_64]
+    - python
+    - cython >=3.0.10,<3.2.0
+    - numpy {{ numpy }}
+    - llvm-openmp 14.0.6  # [osx]
+    - scipy >=1.8.0,<1.16.0
+    - meson-python >=0.16.0,<0.19.0
+    - python-build  # [win]
   run:
     - python
     - joblib >=1.2.0
-    - numpy >=1.19.5
-    - scipy >=1.6.0      # [not (osx and x86_64)]
-    # Build fails on osx-64 without the newest version of scipy.
-    # https://github.com/scikit-learn/scikit-learn/issues/28367#issuecomment-1941101095
-    - scipy >=1.13.0      # [osx and x86_64]
+    - numpy >=1.22.0
+    - scipy >=1.8.0
     - threadpoolctl >=3.1.0
-    - llvm-openmp         # [osx]
-    - _openmp_mutex       # [linux]
+    - llvm-openmp  # [osx]
+    - _openmp_mutex  # [linux]
+  run_constrained:
     # mkl variant pulls in intel-openmp which conflicts with
     # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
     # etc.
-    - blas * openblas     # [osx and x86_64]
-
-{% set tests_to_skip = "_not_a_real_test" %}
-
-# The following test seems to be crashing CI OS.
-{% set tests_to_skip = tests_to_skip + " or test_non_negative_factorization_consistency" %}         # [osx and arm64]
-
-# ValueError: Buffer dtype mismatch, expected 'intp_t' but got 'long'
-{% set tests_to_skip = tests_to_skip + " or test_sort_log2_build" %}                                # [win]
-
-# Only happened on py39, might be a timing issue as it fails at "Check if score and timing are reasonable".
-{% set tests_to_skip = tests_to_skip + " or test_random_search_cv_results_multimetric" %}           # [linux and aarch64]
+    - blas=*=openblas  # [osx and x86_64]
 
 test:
+  imports:
+    - sklearn
+    - sklearn.cluster
+    - sklearn.compose
+    - sklearn.covariance
+    - sklearn.cross_decomposition
+    - sklearn.datasets
+    - sklearn.decomposition
+    - sklearn.ensemble
+    - sklearn.feature_extraction
+    - sklearn.feature_selection
+    - sklearn.frozen
+    - sklearn.gaussian_process
+    - sklearn.impute
+    - sklearn.inspection
+    - sklearn.linear_model
+    - sklearn.manifold
+    - sklearn.metrics
+    - sklearn.mixture
+    - sklearn.model_selection
+    - sklearn.neighbors
+    - sklearn.neural_network
+    - sklearn.preprocessing
+    - sklearn.semi_supervised
+    - sklearn.svm
+    - sklearn.tree
+    - sklearn.utils
+  commands:
+    - pip check
+    - set OPENBLAS_NUM_THREADS=1  # [win]
+    - set OMP_NUM_THREADS=1  # [win]
+    - export OPENBLAS_NUM_THREADS=1  # [not win]
+    - export OMP_NUM_THREADS=1  # [not win]
+    - pytest --timeout 1200 -nauto --verbose --pyargs sklearn
   requires:
     - pip
     - pytest >=7.1.2
     - pytest-timeout
     - pytest-xdist
-    - matplotlib-base >=3.3.4
-    - scikit-image >=0.17.2
-    - pandas >=1.1.5
-    # No polars
+    - matplotlib-base >=3.5.0
+    - scikit-image >=0.19
+    - pandas >=1.4.0
+    # latest polars in main = 0.20.18
     #- polars >=0.20.23
     - pyarrow >=12.0.0
-    # recent numpydoc not yet available
-    - numpydoc >=1.2.0  # [py<313]
+    # tests docstring failed with numpydoc >=1.9.0
+    - numpydoc >=1.2.0,<1.9.0  # [py<313]
     - pooch >=1.6.0
-  imports:
-    - sklearn
-    - sklearn.cluster
-    - sklearn.datasets
-    - sklearn.decomposition
-    - sklearn.ensemble
-    - sklearn.feature_extraction
-    - sklearn.linear_model
-    - sklearn.manifold
-    - sklearn.metrics
-    - sklearn.neighbors
-    - sklearn.tree
-    - sklearn.utils
-    - sklearn.svm
-  commands:
-    - pip check
-    - set OPENBLAS_NUM_THREADS=1          # [win]
-    - set OMP_NUM_THREADS=1               # [win]
-    - export OPENBLAS_NUM_THREADS=1       # [not win]
-    - export OMP_NUM_THREADS=1            # [not win]
-    - pytest --timeout 1200 -nauto --verbose --pyargs sklearn -k "not ({{ tests_to_skip }})"
 
 about:
-  home: https://scikit-learn.org/
+  home: https://scikit-learn.org
   license: BSD-3-Clause
   license_file: COPYING
   license_family: BSD
