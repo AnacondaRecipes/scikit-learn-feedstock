@@ -1,13 +1,13 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.7.1" %}
-{% set sha256 = "24b3f1e976a4665aa74ee0fcaac2b8fccc6ae77c8e07ab25da3ba6d3292b9802" %}
+{% set version = "1.7.2" %}
+{% set sha256 = "20e9e49ecd130598f1ca38a1d85090e1a600147b9c02fa6f15d69cb53d968fda" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
@@ -15,9 +15,9 @@ build:
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
-    - '*/libc++.1.dylib'  # [osx]
-    - '*/libomp.dylib'  # [osx]
-  skip: True  # [py<310]
+    - "*/libc++.1.dylib"  # [osx]
+    - "*/libomp.dylib"  # [osx]
+  skip: true  # [py<310]
 
 requirements:
   build:
@@ -29,9 +29,10 @@ requirements:
     - cython >=3.0.10,<3.2.0
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
-    - scipy >=1.8.0,<1.16.0
+    - scipy >=1.8.0,<1.17.0
     - meson-python >=0.16.0,<0.19.0
     - python-build  # [win]
+    - numpy >=2,<2.4.0
   run:
     - python
     - joblib >=1.2.0
@@ -45,6 +46,9 @@ requirements:
     # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
     # etc.
     - blas=*=openblas  # [osx and x86_64]
+    - cython >=3.0.10
+    - meson-python >=0.17.1
+    - conda-lock ==3.0.1
 
 test:
   imports:
