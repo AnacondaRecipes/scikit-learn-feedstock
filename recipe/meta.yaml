@@ -10,13 +10,13 @@ source:
   sha256: 20e9e49ecd130598f1ca38a1d85090e1a600147b9c02fa6f15d69cb53d968fda
 
 build:
-  number: 0
+  number: 1
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
-    - '*/libc++.1.dylib'  # [osx]
-    - '*/libomp.dylib'  # [osx]
-  skip: True  # [py<310]
+    - "*/libc++.1.dylib"  # [osx]
+    - "*/libomp.dylib"  # [osx]
+  skip: true  # [py<310]
 
 requirements:
   build:
