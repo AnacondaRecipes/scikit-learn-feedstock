@@ -91,7 +91,8 @@ test:
     - pandas >=1.4.0
     # latest polars in main = 0.20.18
     #- polars >=0.20.23
-    - pyarrow >=12.0.0
+    # pyarrow is not available for python 3.14 on the main channel yet
+    - pyarrow >=12.0.0  # [py<314]
     # tests docstring failed with numpydoc >=1.9.0
     - numpydoc >=1.2.0,<1.9.0  # [py<313]
     - pooch >=1.6.0
