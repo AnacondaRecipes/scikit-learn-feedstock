@@ -10,13 +10,13 @@ source:
   sha256: 20e9e49ecd130598f1ca38a1d85090e1a600147b9c02fa6f15d69cb53d968fda
 
 build:
-  number: 0
+  number: 1
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
-    - '*/libc++.1.dylib'  # [osx]
-    - '*/libomp.dylib'  # [osx]
-  skip: True  # [py<310]
+    - "*/libc++.1.dylib"  # [osx]
+    - "*/libomp.dylib"  # [osx]
+  skip: true  # [py<310]
 
 requirements:
   build:
@@ -91,7 +91,8 @@ test:
     - pandas >=1.4.0
     # latest polars in main = 0.20.18
     #- polars >=0.20.23
-    - pyarrow >=12.0.0
+    # pyarrow is not available for python 3.14 on the main channel yet
+    - pyarrow >=12.0.0  # [py<314]
     # tests docstring failed with numpydoc >=1.9.0
     - numpydoc >=1.2.0,<1.9.0  # [py<313]
     - pooch >=1.6.0
