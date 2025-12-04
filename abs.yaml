@@ -1,6 +1,2 @@
 build_env_vars:
   ANACONDA_ROCKET_ENABLE_PY314 : yes
-
-channels:
-  - https://staging.continuum.io/pbp/fs/pythran-feedstock/pr14/3590247
-  - https://staging.continuum.io/pbp/fs/scikit-image-feedstock/pr25/6e868cd
