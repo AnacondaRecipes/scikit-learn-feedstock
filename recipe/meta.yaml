@@ -1,5 +1,5 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.7.2" %}
+{% set version = "1.8.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,16 +7,16 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 20e9e49ecd130598f1ca38a1d85090e1a600147b9c02fa6f15d69cb53d968fda
+  sha256: 9bccbb3b40e3de10351f8f5068e105d0f4083b1a65fa07b6634fbc401a6287fd
 
 build:
-  number: 1
+  number: 0
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   missing_dso_whitelist:
     - "*/libc++.1.dylib"  # [osx]
     - "*/libomp.dylib"  # [osx]
-  skip: true  # [py<310]
+  skip: true  # [py<311]
 
 requirements:
   build:
@@ -26,25 +26,20 @@ requirements:
   host:
     - pip
     - python
-    - cython >=3.0.10,<3.2.0
+    - cython >=3.1.2,<3.3.0
     - numpy {{ numpy }}
     - llvm-openmp 14.0.6  # [osx]
-    - scipy >=1.8.0,<1.17.0
-    - meson-python >=0.16.0,<0.19.0
+    - scipy >=1.10.0,<1.17.0
+    - meson-python >=0.17.1,<0.19.0
     - python-build  # [win]
   run:
     - python
-    - joblib >=1.2.0
-    - numpy >=1.22.0
-    - scipy >=1.8.0
-    - threadpoolctl >=3.1.0
+    - joblib >=1.3.0
+    - numpy >=1.24.1
+    - scipy >=1.10.0
+    - threadpoolctl >=3.2.0
     - llvm-openmp  # [osx]
     - _openmp_mutex  # [linux]
-  run_constrained:
-    # mkl variant pulls in intel-openmp which conflicts with
-    # llvm-openmp. i.e. force to use openblas variant of numpy, scipy,
-    # etc.
-    - blas=*=openblas  # [osx and x86_64]
 
 test:
   imports:
@@ -86,13 +81,11 @@ test:
     - pytest >=7.1.2
     - pytest-timeout
     - pytest-xdist
-    - matplotlib-base >=3.5.0
+    - matplotlib-base >=3.6.1
     - scikit-image >=0.19
     - pandas >=1.4.0
-    # latest polars in main = 0.20.18
-    #- polars >=0.20.23
-    # pyarrow is not available for python 3.14 on the main channel yet
-    - pyarrow >=12.0.0  # [py<314]
+    - polars >=0.20.30
+    - pyarrow >=12.0.0
     # tests docstring failed with numpydoc >=1.9.0
     - numpydoc >=1.2.0,<1.9.0  # [py<313]
     - pooch >=1.6.0
