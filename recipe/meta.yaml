@@ -10,12 +10,9 @@ source:
   sha256: 9bccbb3b40e3de10351f8f5068e105d0f4083b1a65fa07b6634fbc401a6287fd
 
 build:
-  number: 0
+  number: 1
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
-  missing_dso_whitelist:
-    - "*/libc++.1.dylib"  # [osx]
-    - "*/libomp.dylib"  # [osx]
   skip: true  # [py<311]
 
 requirements:
@@ -28,9 +25,12 @@ requirements:
     - python
     - cython >=3.1.2,<3.3.0
     - numpy {{ numpy }}
-    - llvm-openmp 14.0.6  # [osx]
+    - llvm-openmp {{ cxx_compiler_version }}  # [osx]
+    - libgomp  # [linux]
+    - vcomp14  # [win and x86_64]
     - scipy >=1.10.0,<1.17.0
     - meson-python >=0.17.1,<0.19.0
+    - ninja-base >=1.8.2
     - python-build  # [win]
   run:
     - python
@@ -39,7 +39,8 @@ requirements:
     - scipy >=1.10.0
     - threadpoolctl >=3.2.0
     - llvm-openmp  # [osx]
-    - _openmp_mutex  # [linux]
+    - libgomp  # [linux]
+    - vcomp14  # [win and x86_64]
 
 test:
   imports:
