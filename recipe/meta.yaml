@@ -1,16 +1,16 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.8.0" %}
+{% set version = "1.9.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 9bccbb3b40e3de10351f8f5068e105d0f4083b1a65fa07b6634fbc401a6287fd
+  sha256: 8833266989d3a5110178a9fae30783675460724d0e1efb13b14901d2c660c557
 
 build:
-  number: 1
+  number: 0
   script:
     - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   skip: true  # [py<311]
@@ -28,16 +28,17 @@ requirements:
     - llvm-openmp {{ cxx_compiler_version }}  # [osx]
     - libgomp  # [linux]
     - vcomp14  # [win and x86_64]
-    - scipy >=1.10.0,<1.17.0
-    - meson-python >=0.17.1,<0.19.0
-    - ninja-base >=1.8.2
+    - scipy >=1.10.0,<1.18.0
+    - meson-python >=0.17.1,<0.20.0
+    - ninja-base
     - python-build  # [win]
   run:
     - python
-    - joblib >=1.3.0
     - numpy >=1.24.1
     - scipy >=1.10.0
-    - threadpoolctl >=3.2.0
+    - joblib >=1.4.0
+    - narwhals >=2.0.1
+    - threadpoolctl >=3.5.0
     - llvm-openmp  # [osx]
     - libgomp  # [linux]
     - vcomp14  # [win and x86_64]
@@ -79,15 +80,15 @@ test:
     - pytest --timeout 1200 -nauto --verbose --pyargs sklearn
   requires:
     - pip
+    - matplotlib-base >=3.6.1
+    - pandas >=1.5.0
     - pytest >=7.1.2
     - pytest-timeout
     - pytest-xdist
-    - matplotlib-base >=3.6.1
-    - scikit-image >=0.19
-    - pandas >=1.5.0
+    - scikit-image >=0.22
     # Latest polars available for py313
-    - polars >=0.20.30  # [py<314]
-    - pyarrow >=12.0.0
+    - polars >=0.20.30
+    - pyarrow >=13.0.0
     # tests docstring failed with numpydoc >=1.9.0
     - numpydoc >=1.2.0,<1.9.0  # [py<313]
     - pooch >=1.8.0
