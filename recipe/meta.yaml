@@ -1,5 +1,5 @@
 {% set name = "scikit-learn" %}
-{% set version = "1.9.0" %}
+{% set version = "1.9.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 8833266989d3a5110178a9fae30783675460724d0e1efb13b14901d2c660c557
+  sha256: 629cada3e33e2b9bf376cdc7614a47a4140b8aedc1d836579e359736fbd82977
 
 build:
   number: 0
@@ -23,15 +23,16 @@ requirements:
   host:
     - pip
     - python
-    - cython >=3.1.2,<3.3.0
+    - cython >=3.1.2,<3.2.6
     - numpy {{ numpy }}
     - llvm-openmp {{ cxx_compiler_version }}  # [osx]
     - libgomp  # [linux]
     - vcomp14  # [win and x86_64]
-    - scipy >=1.10.0,<1.18.0
-    - meson-python >=0.17.1,<0.20.0
+    - scipy >=1.10.0,<1.19.0
+    - meson-python >=0.17.1,<0.22.0
     - ninja-base
     - python-build  # [win]
+    - numpy >=2,<2.6.0
   run:
     - python
     - numpy >=1.24.1
