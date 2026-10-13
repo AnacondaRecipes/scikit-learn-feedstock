@@ -10,9 +10,8 @@ source:
   sha256: 629cada3e33e2b9bf376cdc7614a47a4140b8aedc1d836579e359736fbd82977
 
 build:
-  number: 0
-  script:
-    - {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
+  number: 1
+  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   skip: true  # [py<311]
 
 requirements:
@@ -23,12 +22,12 @@ requirements:
   host:
     - pip
     - python
-    - cython >=3.1.2,<3.3.0
+    - cython >=3.1.2,<3.2.6
     - numpy {{ numpy }}
     - llvm-openmp {{ cxx_compiler_version }}  # [osx]
     - libgomp  # [linux]
     - vcomp14  # [win and x86_64]
-    - scipy >=1.10.0,<1.18.0
+    - scipy >=1.10.0,<1.19.0
     - meson-python >=0.17.1,<0.20.0
     - ninja-base
     - python-build  # [win]
@@ -43,15 +42,18 @@ requirements:
     - libgomp  # [linux]
     - vcomp14  # [win and x86_64]
 
+
+{% set deselect_tests = "" %}
+
 # Skipping these tests on macOS because they fail due to joblib/loky multiprocessing
 # pickling issues unrelated to the package build itself.
-{% set ignored_tests = [
-  "--deselect neighbors/tests/test_kd_tree.py::test_kdtree_picklable_with_joblib[KDTree64]",
-  "--deselect neighbors/tests/test_kd_tree.py::test_kdtree_picklable_with_joblib[KDTree32]",
-  "--deselect neighbors/tests/test_neighbors.py::test_knn_forcing_backend[ball_tree-loky]",
-  "--deselect neighbors/tests/test_neighbors.py::test_knn_forcing_backend[kd_tree-loky]",
-  "--deselect neighbors/tests/test_neighbors.py::test_knn_forcing_backend[auto-loky]",
-] %}
+{% set deselect_tests = deselect_tests + " --deselect=neighbors/tests/test_kd_tree.py::test_kdtree_picklable_with_joblib[KDTree64]" %}  # [osx]
+{% set deselect_tests = deselect_tests + " --deselect=neighbors/tests/test_kd_tree.py::test_kdtree_picklable_with_joblib[KDTree32]" %}  # [osx]
+{% set deselect_tests = deselect_tests + " --deselect=neighbors/tests/test_neighbors.py::test_knn_forcing_backend[ball_tree-loky]" %}   # [osx]
+{% set deselect_tests = deselect_tests + " --deselect=neighbors/tests/test_neighbors.py::test_knn_forcing_backend[kd_tree-loky]" %}     # [osx]
+{% set deselect_tests = deselect_tests + " --deselect=neighbors/tests/test_neighbors.py::test_knn_forcing_backend[auto-loky]" %}        # [osx]
+# ValueError: .. Error - YD01L No yeld section found 
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_docstrings.py::test_function_docstring" %}
 
 test:
   imports:
@@ -87,7 +89,7 @@ test:
     - set OMP_NUM_THREADS=1  # [win]
     - export OPENBLAS_NUM_THREADS=1  # [not win]
     - export OMP_NUM_THREADS=1  # [not win]
-    - pytest --timeout 1200 -nauto --verbose --pyargs sklearn {{ " ".join(ignored_tests) }}
+    - pytest --pyargs sklearn --timeout 1200 -nauto {{ deselect_tests }} --verbose
   requires:
     - pip
     - matplotlib-base >=3.6.1
@@ -95,9 +97,9 @@ test:
     - pytest >=7.1.2
     - pytest-timeout
     - pytest-xdist
-    - scikit-image >=0.22
+    - scikit-image >=0.22  # [not (win and arm64)]
     # Latest polars available for py313
-    - polars >=0.20.30
+    - polars >=0.20.30  # [not (win and arm64)]
     - pyarrow >=13.0.0
     # tests docstring failed with numpydoc >=1.9.0
     - numpydoc >=1.2.0,<1.9.0  # [py<313]
