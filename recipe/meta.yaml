@@ -10,7 +10,7 @@ source:
   sha256: 629cada3e33e2b9bf376cdc7614a47a4140b8aedc1d836579e359736fbd82977
 
 build:
-  number: 1
+  number: 2
   script: {{ PYTHON }} -m pip install --no-deps --ignore-installed --no-build-isolation . -vv
   skip: true  # [py<311]
 
@@ -28,7 +28,8 @@ requirements:
     - libgomp  # [linux]
     - vcomp14  # [win and x86_64]
     - scipy >=1.10.0,<1.19.0
-    - meson-python >=0.17.1,<0.20.0
+    - meson-python >=0.17.1,<0.22.0 # [py<315]
+    - meson-python >=0.17.1,<0.22.1 # [py315]
     - ninja-base
     - python-build  # [win]
   run:
